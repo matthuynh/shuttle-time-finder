@@ -4,6 +4,7 @@ from bs4 import BeautifulSoup
 from collections import OrderedDict
 import re
 import time
+import sys
 
 class ShuttleTimeChecker:
     """
@@ -121,10 +122,14 @@ class ShuttleTimeChecker:
 if __name__ == "__main__":
     #URL = "https://m.utm.utoronto.ca/shuttleByDate.php"
     #dateParam = {"month": 10, "day": 16, "year":2019}
-    stc = ShuttleTimeChecker()
-    #stc.makeRequest(URL, dateParam)
-    d = stc.getShuttleSchedule(10, 16, 2019)
 
-    for k, v in d.items():
-        #print(k,v) 
-        pass
+    #stc = ShuttleTimeChecker()
+    #stc.makeRequest(URL, dateParam)
+    
+    #d = stc.getShuttleSchedule(10, 16, 2019)
+
+    month = int(sys.argv[1])
+    day = int(sys.argv[2])
+    year = int(sys.argv[3])
+    print("Date returned from Python is {0}, {1}, {2}".format(month, day, year))
+    sys.stdout.flush()
