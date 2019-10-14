@@ -3,7 +3,7 @@ var data = require('../data/calendar.json')
 
 const router = express.Router();
 
-let today = getCurrentDate();
+let today = new Date();
 // This data initially shows the current time and default settings. It saves the user's last choice.
 let preselectedData = {
   preselectedMonth: getCurrentMonth(today.getMonth()),
@@ -14,6 +14,7 @@ let preselectedData = {
   preselectedUTSG: true,
   preselectedUTM: false
 }
+
 
 // Renders the 'form.pug' template from views
 router.all('/', (req, res) => {
@@ -34,7 +35,7 @@ router.all('/', (req, res) => {
   });
 });
 
-//Handles the POST route from selecting a date from dropdown
+// Handles the POST route from selecting a date from dropdown
 router.post("/leaveAt" , function(req, res){
   // Save user choices to preselectedData
   updatePreselectedData(req);
@@ -59,7 +60,7 @@ router.post("/leaveAt" , function(req, res){
   });
 });
 
-//Handles the POST route from choosing to leave now
+// Handles the POST route from choosing to leave now
 router.post("/leaveNow" , function(req, res){
   console.log(req.body)
   res.render('instructions', {
@@ -68,11 +69,12 @@ router.post("/leaveNow" , function(req, res){
 });
 
 
-function getCurrentDate() {
-  let today = new Date();
-  return today;
-}
-
+/**
+ * Given a month value between 0 and 11, inclusive, returns the 
+ * string equivalent.
+ * 
+ * @param {Number} monthValue 
+ */
 function getCurrentMonth(monthValue) {
   let monthNames = 
     ["January", "February", "March", "April", "May", "June",
@@ -80,12 +82,23 @@ function getCurrentMonth(monthValue) {
   return monthNames[monthValue];
 }
 
+/**
+ * Given a value, round up to the nearest interval specified by interval
+ * 
+ * @param {Number} value    The value you would like round
+ * @param {Number} interval The interval you would like to round up to
+ */
 function ceilRoundToInteger(value, interval) {
   return Math.ceil(value/interval) * interval;
 }
 
 
-// Remember that request stores information coming IN from the user
+/**
+ * Updates preselected data based on the user's choices
+ * Req stores the request data, information coming IN from the user
+ * 
+ * @param {*} req 
+ */
 function updatePreselectedData(req) {
   preselectedData.preselectedMonth = req.body.monthChosen;
   preselectedData.preselectedDay = req.body.dayChosen;

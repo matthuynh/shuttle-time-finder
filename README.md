@@ -31,10 +31,14 @@ Given your current location, calculates when the next UTM-UTSG shuttle bus is
 - Webscraping code from: https://github.com/cobalt-uoft/uoft-scrapers/blob/master/uoftscrapers/scrapers/shuttles/__init__.py
 
 
+
+
 # Known Issues
 - Input validation does not exist for months of varying days (and leap years). For example, Feburary 2020 (a leap year) should have 29 days, but the form will show that it has 31 days.
     - All months have 31 days
     - Proposed solution: update the dropdown for Day depending on the Month and Year chosen
 
-# To Add
+# To Add/To Do
 - JEST tests
+- https://github.com/timoxley/best-practices
+- https://gist.github.com/sidorares/c49750ed8f7750afd5ad
