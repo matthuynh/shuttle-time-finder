@@ -1,0 +1,26 @@
+body {
+  padding: 40px 10px;
+  background-color: #eee;
+}
+.listing-reg h1 {
+  text-align: center;
+  margin: 0 0 2rem;
+}
+
+/* css for registration form and errors*/
+.date-location-chooser {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.date-location-chooser {
+  display: flex;
+  flex-wrap: wrap;
+}
+.date-location-chooser input {
+  width: 100%;
+  margin: 0px 0 10px;
+}
+.date-location-choosern .btn {
+  flex: 1 0 100%;
+}
