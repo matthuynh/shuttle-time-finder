@@ -22,6 +22,7 @@ block dateContent
   form(action='/leaveAt', method="POST", class="date-location-chooser")
 
     label(for="leave-at-text") I want to leave at...
+    |
     //- Month Dropdown
     label(for='monthLabel') Months 
       select(name='monthChosen', id='')
@@ -52,6 +53,8 @@ block dateContent
       select(name='minuteChosen', id='')
         each minute in Minutes
             option(value=minute, selected=(minute==preselectedMinute)) #{minute}
+
+    | I will be boarding the shuttle bus at...
 
     //- Campus Radio Buttons
     input(type="radio", name="busStop", value="UTSG", checked=(true==preselectedUTSG))

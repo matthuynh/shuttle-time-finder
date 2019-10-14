@@ -1,4 +1,9 @@
 extends layout
 
 block instructions
+  //- List instructions for the user
   label(for="leave-at-text") Your instructions
+
+  //- Allows the user to go back to the home page
+  form(action='/', method="POST", class="date-location-chooser")
+    input(type='submit', value='Go Back', class="btn btn-lg btn-primary btn-block")

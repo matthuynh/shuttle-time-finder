@@ -3,15 +3,20 @@ var data = require('../data/calendar.json')
 
 const router = express.Router();
 
+let today = getCurrentDate();
+// This data initially shows the current time and default settings. It saves the user's last choice.
+let preselectedData = {
+  preselectedMonth: getCurrentMonth(today.getMonth()),
+  preselectedDay: today.getDate(),
+  preselectedYear: today.getFullYear(),
+  preselectedHour: today.getHours(),
+  preselectedMinute: ceilRoundToInteger(today.getMinutes(), 5),
+  preselectedUTSG: true,
+  preselectedUTM: false
+}
+
 // Renders the 'form.pug' template from views
-router.get('/', (req, res) => {
-  let today = getCurrentDate();
-  let currentMonth = getCurrentMonth(today.getMonth());
-  let currentDate = today.getDate();
-  let currentYear = today.getFullYear();
-  let currentHour = today.getHours();
-  let currentMinute = ceilRoundToInteger(today.getMinutes(), 5);
-  
+router.all('/', (req, res) => {
   res.render('form', {
     title: 'UTM Shuttle Bus Scheduler', 
     Months: data['Months'],
@@ -19,28 +24,21 @@ router.get('/', (req, res) => {
     Years: data['Years'],
     Hours: data['Hours'],
     Minutes: data['Minutes'],
-    preselectedMonth: currentMonth,
-    preselectedDay: currentDate,
-    preselectedYear: currentYear,
-    preselectedHour: currentHour,
-    preselectedMinute: currentMinute,
-    preselectedUTSG: true,
-    preselectedUTM: false
+    preselectedMonth: preselectedData.preselectedMonth,
+    preselectedDay: preselectedData.preselectedDay,
+    preselectedYear: preselectedData.preselectedYear,
+    preselectedHour: preselectedData.preselectedHour,
+    preselectedMinute: preselectedData.preselectedMinute,
+    preselectedUTSG: preselectedData.preselectedUTM,
+    preselectedUTM: preselectedData.preselectedUTSG
   });
 });
 
-// Handles the POST route from clicking on 'Submit'
-// router.post('/', (req, res) => {
-//     console.log(req.body);
-//     res.render('form', { 
-//         title: 'Time Submission', 
-//         Months: data['Months']
-//     });
-// });
-
-
 //Handles the POST route from selecting a date from dropdown
 router.post("/leaveAt" , function(req, res){
+  // Save user choices to preselectedData
+  updatePreselectedData(req);
+
   console.log(req.body)
   res.render('form', {
     title: 'Date Chosen',
@@ -51,23 +49,23 @@ router.post("/leaveAt" , function(req, res){
     Years: data['Years'],
     Hours: data['Hours'],
     Minutes: data['Minutes'],
-    preselectedMonth: req.body.monthChosen,
-    preselectedDay: req.body.dayChosen,
-    preselectedYear: req.body.yearChosen,
-    preselectedHour: req.body.hourChosen,
-    preselectedMinute: req.body.minuteChosen,
-    preselectedUTSG: req.body.busStop == "UTSG",
-    preselectedUTM: req.body.busStop == "UTM"
-  })
-})
+    preselectedMonth: preselectedData.preselectedMonth,
+    preselectedDay: preselectedData.preselectedDay,
+    preselectedYear: preselectedData.preselectedYear,
+    preselectedHour: preselectedData.preselectedHour,
+    preselectedMinute: preselectedData.preselectedMinute,
+    preselectedUTSG: preselectedData.preselectedUTM,
+    preselectedUTM: preselectedData.preselectedUTSG
+  });
+});
 
 //Handles the POST route from choosing to leave now
 router.post("/leaveNow" , function(req, res){
   console.log(req.body)
   res.render('instructions', {
       title: 'Leave Now'
-  })
-})
+  });
+});
 
 
 function getCurrentDate() {
@@ -82,9 +80,20 @@ function getCurrentMonth(monthValue) {
   return monthNames[monthValue];
 }
 
-
 function ceilRoundToInteger(value, interval) {
   return Math.ceil(value/interval) * interval;
+}
+
+
+// Remember that request stores information coming IN from the user
+function updatePreselectedData(req) {
+  preselectedData.preselectedMonth = req.body.monthChosen;
+  preselectedData.preselectedDay = req.body.dayChosen;
+  preselectedData.preselectedYear = req.body.yearChosen;
+  preselectedData.preselectedHour = req.body.hourChosen;
+  preselectedData.preselectedMinute = req.body.minuteChosen;
+  preselectedData.preselectedUTSG = req.body.busStop == "UTSG";
+  preselectedData.preselectedUTM = req.body.busStop == "UTM";
 }
 
 module.exports = router;
