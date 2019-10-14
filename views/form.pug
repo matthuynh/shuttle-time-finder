@@ -19,38 +19,51 @@ block content
   //-   input(type="submit" value="Submit")
 
 block dateContent
-  form(action='/dateChosen', method="POST", class="date-location-chooser")
+  form(action='/leaveAt', method="POST", class="date-location-chooser")
 
-    //- Month Label
+    label(for="leave-at-text") I want to leave at...
+    //- Month Dropdown
     label(for='monthLabel') Months 
       select(name='monthChosen', id='')
         each month in Months
-            option=month
+            //- option=month
+            option(value=month, selected=(month==preselectedMonth)) #{month}
     
-    //- Day Label
-    label(for='monthLabel') Day 
-      select(name='monthChosen', id='')
-        each month in Months
-            option=month
+    //- Day Dropdown
+    label(for='dayLabel') Day 
+      select(name='dayChosen', id='')
+        each day in Days
+            option(value=day, selected=(day==preselectedDay)) #{day}
 
-    //- Year Label
-    label(for='monthLabel') Year 
-      select(name='monthChosen', id='')
+    //- Year Dropdown
+    label(for='yearLabel') Year 
+      select(name='yearChosen', id='')
         each year in Years
-            option=year
-    
-    input(type="radio", name="busStop", value="UTSG", checked)
+            option(value=year, selected=(year==preselectedYear)) #{year}
+
+    //- Hour Dropdown
+    label(for='hourLabel') Hour 
+      select(name='hourChosen', id='')
+        each hour in Hours
+            option(value=hour, selected=(hour==preselectedHour)) #{hour}
+
+    //- Minute Dropdown
+    label(for='minuteLabel') Minute 
+      select(name='minuteChosen', id='')
+        each minute in Minutes
+            option(value=minute, selected=(minute==preselectedMinute)) #{minute}
+
+    //- Campus Radio Buttons
+    input(type="radio", name="busStop", value="UTSG", checked=(true==preselectedUTSG))
     | UTSG
-    input(type="radio", name="busStop", value="UTM")
+    input(type="radio", name="busStop", value="UTM", checked=(true==preselectedUTM))
     | UTM
 
-    input(type='submit', value='Submit', class="btn btn-lg btn-primary btn-block")
+    input(type='submit', value='Calculate', class="btn btn-lg btn-primary btn-block")
 
 
-//- block dateContent
-//-   form(action='/dateChosen' method="POST")
-//-     label(for='monthLabel') Months 
-//-     select(name='monthChosen', id='')
-//-       each month in Months
-//-           option=month
-//-       input(type='submit', value='Submit')
+block leaveNow
+  label(for="leave-now-text") I need to get to the bus ASAP!
+  form(action='/leaveNow', method="POST", class="date-location-chooser")
+    input(type='submit', value='Get me the next bus NOW', class="btn btn-lg btn-primary btn-block")
+
