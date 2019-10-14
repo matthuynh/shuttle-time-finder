@@ -1,0 +1,26 @@
+{
+  "name": "shuttle-time-finder",
+  "version": "1.0.0",
+  "description": "Given your current location, calculates when the next UTM-UTSG shuttle bus is",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matthuynh/shuttle-time-finder.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matthuynh/shuttle-time-finder/issues"
+  },
+  "homepage": "https://github.com/matthuynh/shuttle-time-finder#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.3"
+  }
+}

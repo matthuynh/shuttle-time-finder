@@ -1,3 +1,9 @@
+node_modules/
+
+
+
+# MAC FILES -----------------------------------------------
+
 # General
 .DS_Store
 .AppleDouble
