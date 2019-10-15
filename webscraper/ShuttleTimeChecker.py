@@ -122,7 +122,8 @@ class ShuttleTimeChecker:
             ('date', date),
             ('routes', [v for k, v in routes.items()])
         ])
-        
+
+     
 if __name__ == "__main__":
     #URL = "https://m.utm.utoronto.ca/shuttleByDate.php"
     #dateParam = {"month": 10, "day": 16, "year":2019}
