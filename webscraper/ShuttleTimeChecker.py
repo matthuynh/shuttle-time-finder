@@ -1,71 +1,98 @@
 import requests
+import re
+import time
+import logging
+from logging.handlers import RotatingFileHandler
+#import sys
+#import json
 from requests.exceptions import Timeout
 from bs4 import BeautifulSoup
 from collections import OrderedDict
-import re
-import time
-import sys
-import json
+
 
 class ShuttleTimeChecker:
-    """
+    """ Gets shuttle data from a UTM website.
     """
 
     def __init__(self):
         self.URL = "https://m.utm.utoronto.ca/shuttleByDate.php"
-
         self.building_ids = {
-        'Instructional Centre Layby': '334',
-        'Hart House': '002',
-        'Deerfield Hall North Layby': '340'
-    }
+            'Instructional Centre Layby': '334',
+            'Hart House': '002',
+            'Deerfield Hall North Layby': '340'
+        }
 
-    def writeToJSON(self, data):
-        """ Given data, write to a given JSON file
-        This feature is useful for saving data into a DB.
-
-        TODO: Error checking.
-        """
-        with open('data.json', 'w+') as outfile:
-            json.dump(data, outfile, ensure_ascii=True, indent=4)
+        # Setup logging
+        LOG_FILENAME = 'ShuttleTimeChecker.log'
+        self.stcLogger = logging.getLogger("stcLogger")
+        logFormat = logging.Formatter("[%(asctime)s] %(message)s")
+        self.stcLogger.setLevel(logging.WARNING)
+        handler = logging.handlers.RotatingFileHandler(LOG_FILENAME, \
+            mode='a', maxBytes=4194304, backupCount = 5)
+        handler.setFormatter(logFormat)
+        self.stcLogger.addHandler(handler)
 
     def makeRequest(self, url, param):
         """ Given a hyperlink, send an HTTP request to that website.
-        Save the response.
+        Return the response.
+
+        Args:
+            url (str): The URL to send a GET request to.
+            param (dict): The year, month, and date params for the GET request.
+        
+        Returns:
+            return_str (str): The result of the request.
         """
+        return_str = "invalid_request"
+
+        # Verify that the request was successful
         try:
             res = requests.get(url, params=param, timeout=5)
-        except requests.exceptions.Timeout:
-            pass
+        except requests.exceptions.Timeout as e:
+            print(e)
+            self.stcLogger.warning(e)
         except requests.exceptions.RequestException as e:
             print(e)
-            #sys.exit(1)
+            self.stcLogger.warning(e)
+        except Exception as e:
+            print(e)
+            self.stcLogger.warning(e)
         else:
             if (res.status_code == 200):
-                #print(res.text)
-                #print(res.headers)
-                return res.text
+                return_str = res.text
             else:
-                print("Status code: " + res.status_code)
-                return "empty_response"
+                print("Status code: " + str(res.status_code))
+                return_str = "empty_response"
+                self.stcLogger.warning(res.status_code)
+        finally:
+            return return_str
+
 
     def getShuttleSchedule(self, day, month, year):
-        """ Given a date and time, get the shuttle times
+        """ Given a date and time, get the shuttle times.
+
+        Note: The webscraping and regex functionality from this function is from
+        https://github.com/cobalt-uoft/uoft-scrapers/blob/master/uoftscrapers/scrapers/shuttles/__init__.py
+
+        Args: 
+            day (int)
+            month (int)
+            year (int)
+        
+        Returns: An OrderedDict of the requested shuttle schedule data.
+            This object can be converted into JSON. If webscraping was 
+            unsuccessful, returns an empty OrderedDict
         """
-        utm_times = []
-        utsg_times = []
-
-        # for some reason, using the variable doesn't work
-        dateParam = {"month": 10, "day": 16, "year": 2019}
+        # Attempt to get the HTML
+        dateParam = {"month": str(day), "day": str(month), "year": str(year)}
         markup = self.makeRequest(self.URL, dateParam)
-        #print(markup)
+        if (markup == "invalid_request" or markup == "empty_response"):
+            return OrderedDict()
         soup = BeautifulSoup(markup, 'html.parser')
-
 
         # Get date
         date = time.strftime(
             '%Y-%m-%d', time.strptime(soup.find('h2').get_text().strip(), '%b %d %Y'))
-
 
         # Get route data
         routes = {}
@@ -123,18 +150,21 @@ class ShuttleTimeChecker:
             ('routes', [v for k, v in routes.items()])
         ])
 
+    
+    # def writeToJSON(self, data):
+    #     """ Given OrderedDict data, write to a given JSON file
+
+    #     TODO: Error checking.
+    #     """
+    #     with open('data.json', 'w+') as outfile:
+    #         json.dump(data, outfile, ensure_ascii=True, indent=4)
+
      
 if __name__ == "__main__":
-    #URL = "https://m.utm.utoronto.ca/shuttleByDate.php"
-    #dateParam = {"month": 10, "day": 16, "year":2019}
-
     stc = ShuttleTimeChecker()
-    #stc.makeRequest(URL, dateParam)
-    
-    d = stc.getShuttleSchedule(10, 16, 2019)
-    #stc.writeToJSON(d) # We use this if we want to introduce future DB functionality
-    print(d)
+    result = stc.getShuttleSchedule(11, 11, 2019)
 
+    # Code below used for spawning a child process from node and running python3 on this file
     # month = int(sys.argv[1])
     # day = int(sys.argv[2])
     # year = int(sys.argv[3])
