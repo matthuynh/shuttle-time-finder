@@ -5,6 +5,7 @@ from collections import OrderedDict
 import re
 import time
 import sys
+import json
 
 class ShuttleTimeChecker:
     """
@@ -19,11 +20,14 @@ class ShuttleTimeChecker:
         'Deerfield Hall North Layby': '340'
     }
 
-
-    def writeToJSON(self):
+    def writeToJSON(self, data):
         """ Given data, write to a given JSON file
+        This feature is useful for saving data into a DB.
+
+        TODO: Error checking.
         """
-        pass
+        with open('data.json', 'w+') as outfile:
+            json.dump(data, outfile, ensure_ascii=True, indent=4)
 
     def makeRequest(self, url, param):
         """ Given a hyperlink, send an HTTP request to that website.
@@ -42,7 +46,7 @@ class ShuttleTimeChecker:
                 #print(res.headers)
                 return res.text
             else:
-                print(res.status_code)
+                print("Status code: " + res.status_code)
                 return "empty_response"
 
     def getShuttleSchedule(self, day, month, year):
@@ -69,7 +73,7 @@ class ShuttleTimeChecker:
         if _routes:
             for _route in _routes.find_all('option'):
                 _route_id = _route.get('value')
-                print(_route_id)
+                # print(_route_id)
                 _route_times = soup.find(id=_route_id).find_all('li')
 
                 route_name, route_location = _route.get_text().strip().split(' @ ')
@@ -123,13 +127,15 @@ if __name__ == "__main__":
     #URL = "https://m.utm.utoronto.ca/shuttleByDate.php"
     #dateParam = {"month": 10, "day": 16, "year":2019}
 
-    #stc = ShuttleTimeChecker()
+    stc = ShuttleTimeChecker()
     #stc.makeRequest(URL, dateParam)
     
-    #d = stc.getShuttleSchedule(10, 16, 2019)
+    d = stc.getShuttleSchedule(10, 16, 2019)
+    #stc.writeToJSON(d) # We use this if we want to introduce future DB functionality
+    print(d)
 
-    month = int(sys.argv[1])
-    day = int(sys.argv[2])
-    year = int(sys.argv[3])
-    print("Date returned from Python is {0}, {1}, {2}".format(month, day, year))
-    sys.stdout.flush()
+    # month = int(sys.argv[1])
+    # day = int(sys.argv[2])
+    # year = int(sys.argv[3])
+    # print("Date returned from Python is {0}, {1}, {2}".format(month, day, year))
+    # sys.stdout.flush()

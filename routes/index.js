@@ -1,6 +1,7 @@
 const express = require('express');
 const os = require('os');
-var data = require('../data/calendar.json');
+let calendarData = require('../data/calendar.json');
+const { body, validationResult } = require('express-validator');
 
 const router = express.Router();
 
@@ -16,16 +17,17 @@ let preselectedData = {
   preselectedUTM: false
 }
 
+let busData;
 
 // Renders the 'form.pug' template from views
 router.all('/', (req, res) => {
   res.render('form', {
     title: 'UTM Shuttle Bus Scheduler', 
-    Months: data['Months'],
-    Days: data['Days'],
-    Years: data['Years'],
-    Hours: data['Hours'],
-    Minutes: data['Minutes'],
+    Months: calendarData['Months'],
+    Days: calendarData['Days'],
+    Years: calendarData['Years'],
+    Hours: calendarData['Hours'],
+    Minutes: calendarData['Minutes'],
     preselectedMonth: preselectedData.preselectedMonth,
     preselectedDay: preselectedData.preselectedDay,
     preselectedYear: preselectedData.preselectedYear,
@@ -36,32 +38,40 @@ router.all('/', (req, res) => {
   });
 });
 
-// User chooses to Calculate the next shuttle time
+// User chooses to calculate the next shuttle time
 router.post("/leaveAt" , function(req, res){
 
-  getBusSchedule(req, res);
+  // Verifies if the user has entered a correct date
+  let validDate = verifyValidDate(req); // TODO: Fix this. Possible async issues.
+  let errMsg = "";
+  if (validDate) {
+    busData = getBusSchedule(req, res);
+  } else {
+    errMsg = "Please enter a valid month-date-year combination!"
+  }
 
   // Save user choices to preselectedData
   updatePreselectedData(req);
 
-  //console.log(req.body)
+  console.log(req.body)
   res.render('form', {
     title: 'Date Chosen',
-    currentDate: 'The current date is ' + req.body.monthChosen + req.body.dayChosen + req.body.yearChosen,
+    errorMessage: errMsg,
     locationChosen: 'The location is ' + req.body.busStop,
-    Months: data['Months'],
-    Days: data['Days'],
-    Years: data['Years'],
-    Hours: data['Hours'],
-    Minutes: data['Minutes'],
+    Months: calendarData['Months'],
+    Days: calendarData['Days'],
+    Years: calendarData['Years'],
+    Hours: calendarData['Hours'],
+    Minutes: calendarData['Minutes'],
     preselectedMonth: preselectedData.preselectedMonth,
     preselectedDay: preselectedData.preselectedDay,
     preselectedYear: preselectedData.preselectedYear,
     preselectedHour: preselectedData.preselectedHour,
     preselectedMinute: preselectedData.preselectedMinute,
-    preselectedUTSG: preselectedData.preselectedUTM,
-    preselectedUTM: preselectedData.preselectedUTSG
+    preselectedUTSG: preselectedData.preselectedUTSG,
+    preselectedUTM: preselectedData.preselectedUTM
   });
+  
 });
 
 // Handles the POST route from choosing to leave now
@@ -126,19 +136,29 @@ function updatePreselectedData(req) {
   preselectedData.preselectedUTM = req.body.busStop == "UTM";
 }
 
-// router.post("/leaveAt", getShuttleTimes);
+/**
+ * Determines if the given month-day-year combination is valid.
+ * 
+ * @param {*} req 
+ */
+async function verifyValidDate(req) {
+  let thirtyDays = ["April", "June", "September", "November"];
+  let chosenMonth = req.body.chosenMonth;
+  let chosenDay = req.body.chosenDay;
+  let chosenYear = req.body.chosenYear;
 
-// function getShuttleTimes(req, res) {
-//   console.log("Getting shuttle times...");
-
-//   let spawn = require("child_process").spawn;
-//   let process = spawn('python', ["../webscraper/ShuttleTimeChecker.py", 
-//   req.body.monthChosen, req.body.dayChosen, req.body.yearChosen]);
-
-//   process.stdout.on('data', function(data) {
-//     res.send(data.toString());
-//   })
-// }
+  if (thirtyDays.includes(chosenMonth) && chosenDay == 31) {
+    return false;
+  } else if (chosenMonth == "February" && chosenDay > 29) {
+    return false;
+  } 
+  // Check if leap year
+  else if (chosenMonth == "Feburary" && chosenDay == 29) {
+    const date = new Date(chosenYear, 1, 29);
+    return date.getMonth() === 1;
+  }
+  return true;
+}
   
 function getBusSchedule(req, res) { 
     var spawn = require("child_process").spawn; 
@@ -150,10 +170,11 @@ function getBusSchedule(req, res) {
     var ls = spawn('python3',
     [filePath, getMonthValue(req.body.monthChosen), req.body.dayChosen, req.body.yearChosen]); 
 
-    // Sends stdout/stderr data to res object
+    // Saves stdout/stderr data
     ls.stdout.on('data', (data) => {
-      console.log(`stdout: ${data}`);
-      res.send(data.to)
+      //console.log(`stdout: ${data}`);
+      // res.send(data.toString())
+      return data;
     });
     
     ls.stderr.on('data', (data) => {
@@ -164,6 +185,5 @@ function getBusSchedule(req, res) {
       console.log(`child process exited with code ${code}`);
     });
 } 
-  
 
 module.exports = router;
