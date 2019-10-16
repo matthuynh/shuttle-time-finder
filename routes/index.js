@@ -43,37 +43,46 @@ router.all('/', (req, res) => {
 router.post("/leaveAt" , function(req, res){
 
   // Verifies if the user has entered a correct date
-  let validDate = verifyValidDate(req);
+  //let validDate = verifyValidDate(req);
   let errMsg = "";
 
-  if (validDate) {
-    //busData = getBusSchedule(req, res);
-    res.render('instructions', {
-      title: 'Leave Now'
+  verifyValidDate(req).then(
+    (isValidDate) => {
+      // Valid Date
+      if (isValidDate) {
+        console.log("The date is valid");
+        //busData = getBusSchedule(req, res);
+        res.render('instructions', {
+          title: 'Leave Now'
+        });
+      } 
+      // Invalid Date
+      else {
+        console.log("The date is invalid")
+        errMsg = "Please enter a valid month-date-year combination!"
+        res.render('form', {
+          title: 'Date Chosen',
+          errorMessage: errMsg,
+          Months: calendarData['Months'],
+          Days: calendarData['Days'],
+          Years: calendarData['Years'],
+          Hours: calendarData['Hours'],
+          Minutes: calendarData['Minutes'],
+          preselectedMonth: preselectedData.preselectedMonth,
+          preselectedDay: preselectedData.preselectedDay,
+          preselectedYear: preselectedData.preselectedYear,
+          preselectedHour: preselectedData.preselectedHour,
+          preselectedMinute: preselectedData.preselectedMinute,
+          preselectedUTSG: preselectedData.preselectedUTSG,
+          preselectedUTM: preselectedData.preselectedUTM
+        });
+      }
+    }).catch((error) => {
+      console.log("Promise caught error")
     });
-  } else {
-    errMsg = "Please enter a valid month-date-year combination!"
-    res.render('form', {
-      title: 'Date Chosen',
-      errorMessage: errMsg,
-      locationChosen: 'The location is ' + req.body.busStop,
-      Months: calendarData['Months'],
-      Days: calendarData['Days'],
-      Years: calendarData['Years'],
-      Hours: calendarData['Hours'],
-      Minutes: calendarData['Minutes'],
-      preselectedMonth: preselectedData.preselectedMonth,
-      preselectedDay: preselectedData.preselectedDay,
-      preselectedYear: preselectedData.preselectedYear,
-      preselectedHour: preselectedData.preselectedHour,
-      preselectedMinute: preselectedData.preselectedMinute,
-      preselectedUTSG: preselectedData.preselectedUTSG,
-      preselectedUTM: preselectedData.preselectedUTM
-    });
-  }
-  // Save user choices to preselectedData
-  updatePreselectedData(req);
-  
+
+    // Save user choices to preselectedData
+    updatePreselectedData(req);
 });
 
 // Handles the POST route from choosing to leave now
@@ -200,9 +209,10 @@ function updatePreselectedData(req) {
  */
 async function verifyValidDate(req) {
   let thirtyDays = ["April", "June", "September", "November"];
-  let chosenMonth = req.body.chosenMonth;
-  let chosenDay = req.body.chosenDay;
-  let chosenYear = req.body.chosenYear;
+  let chosenMonth = req.body.monthChosen;
+  let chosenDay = req.body.dayChosen;
+  let chosenYear = req.body.yearChosen;
+
 
   if (thirtyDays.includes(chosenMonth) && chosenDay == 31) {
     return false;
@@ -210,7 +220,7 @@ async function verifyValidDate(req) {
     return false;
   } 
   // Check if leap year
-  else if (chosenMonth == "Feburary" && chosenDay == 29) {
+  else if (chosenMonth == "February" && chosenDay == 29) {
     const date = new Date(chosenYear, 1, 29);
     return date.getMonth() === 1;
   }
