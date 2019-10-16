@@ -1,7 +1,9 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const ShuttleData = mongoose.model('ShuttleData');
 const os = require('os');
 let calendarData = require('../data/calendar.json');
-
+const dateFormat = require('dateformat');
 const router = express.Router();
 
 let today = new Date();
@@ -41,35 +43,36 @@ router.all('/', (req, res) => {
 router.post("/leaveAt" , function(req, res){
 
   // Verifies if the user has entered a correct date
-  let validDate = verifyValidDate(req); // TODO: Fix this. Possible async issues.
+  let validDate = verifyValidDate(req);
   let errMsg = "";
+
   if (validDate) {
-    busData = getBusSchedule(req, res);
+    //busData = getBusSchedule(req, res);
+    res.render('instructions', {
+      title: 'Leave Now'
+    });
   } else {
     errMsg = "Please enter a valid month-date-year combination!"
+    res.render('form', {
+      title: 'Date Chosen',
+      errorMessage: errMsg,
+      locationChosen: 'The location is ' + req.body.busStop,
+      Months: calendarData['Months'],
+      Days: calendarData['Days'],
+      Years: calendarData['Years'],
+      Hours: calendarData['Hours'],
+      Minutes: calendarData['Minutes'],
+      preselectedMonth: preselectedData.preselectedMonth,
+      preselectedDay: preselectedData.preselectedDay,
+      preselectedYear: preselectedData.preselectedYear,
+      preselectedHour: preselectedData.preselectedHour,
+      preselectedMinute: preselectedData.preselectedMinute,
+      preselectedUTSG: preselectedData.preselectedUTSG,
+      preselectedUTM: preselectedData.preselectedUTM
+    });
   }
-
   // Save user choices to preselectedData
   updatePreselectedData(req);
-
-  console.log(req.body)
-  res.render('form', {
-    title: 'Date Chosen',
-    errorMessage: errMsg,
-    locationChosen: 'The location is ' + req.body.busStop,
-    Months: calendarData['Months'],
-    Days: calendarData['Days'],
-    Years: calendarData['Years'],
-    Hours: calendarData['Hours'],
-    Minutes: calendarData['Minutes'],
-    preselectedMonth: preselectedData.preselectedMonth,
-    preselectedDay: preselectedData.preselectedDay,
-    preselectedYear: preselectedData.preselectedYear,
-    preselectedHour: preselectedData.preselectedHour,
-    preselectedMinute: preselectedData.preselectedMinute,
-    preselectedUTSG: preselectedData.preselectedUTSG,
-    preselectedUTM: preselectedData.preselectedUTM
-  });
   
 });
 
@@ -81,6 +84,61 @@ router.post("/leaveNow" , function(req, res){
   });
 });
 
+router.get('/shuttleData', (req, res) => {
+  let lowerRange = dateFormat(new Date(2019, 10-1, 24), 'yyyy-mm-dd');
+  let upperRange = dateFormat(new Date(2019, 10-1, 24+1), 'yyyy-mm-dd');
+  // Accesses the ShuttleData Mongoose schema defined in models/ShuttleData.js
+  ShuttleData.find({'date': {$gte: lowerRange, $lte: upperRange}})
+    .then((shuttleData) => {
+      res.render('shuttleData', { dataDump: shuttleData});
+      //console.log(shuttleData[0].utm_departures[0]);
+      //console.log(shuttleData.keys());
+
+     
+      shuttleData = shuttleData[0]._doc;
+      //console.log(shuttleData);
+
+      let retrievedDate = shuttleData.date;
+      console.log(retrievedDate);
+
+      let utmTimes = shuttleData.utm_departures;
+      //console.log(utmTimes);
+
+      let utsgTimes = shuttleData.utsg_departures;
+      //console.log(utsgTimes);
+
+      for (const key of Object.keys(utmTimes)) {
+          console.log(utmTimes[key].time);
+          console.log(utmTimes[key].rush_hour);
+          console.log(utmTimes[key].no_overload);
+      }
+      
+      console.log('reached');
+      //let shuttleJsonData = shuttleData.toObject();
+      console.log('here');
+      //console.log(shuttleJsonData);
+      const fs = require('fs');
+
+      fs.writeFile("test.txt", shuttleData, function(err) {
+
+          if(err) {
+              return console.log(err);
+          }
+
+          console.log("The file was saved!");
+      }); 
+
+    })
+    .catch(() => { res.send('Sorry! Something went wrong.'); });
+
+  // res.render('shuttleData', { title: 'Listing registrations' });
+});
+
+
+// Handles the case where a user tries to go to a non-existent route
+router.get('*', function(req, res){
+  res.status(404).send('404. Please go home');
+});
 
 /**
  * Given a month value between 0 and 11, inclusive, returns the 
