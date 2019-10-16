@@ -8,7 +8,8 @@ import logging
 from logging.handlers import RotatingFileHandler
 from collections import OrderedDict
 from json import loads, dumps
-from pymongo import MongoClient
+from pymongo import MongoClient, UpdateMany
+from datetime import timedelta
 from ShuttleTimeChecker import ShuttleTimeChecker
 
 # Ensure that the command line arguments are being provided correctly
@@ -16,7 +17,7 @@ parser = argparse.ArgumentParser(description="Update Mongo server with shuttle d
 parser.add_argument("month", metavar="mm", type=int, help='The month in numerical form (eg. 1, 2, ..., 12)')
 parser.add_argument("day", metavar="dd", type=int, help='The day in numerical form (eg. 1, 2, ..., 31)')
 parser.add_argument("year", metavar="yyyy", type=int, help='The year in numerical form (eg. 2017, 2018, ...)')
-parser.add_argument("range", metavar="n", type=int, default=1, nargs='?', help='Optional. Get data for n day into the future from the provided day (inclusive).')
+parser.add_argument("range", metavar="n", type=int, default=0, nargs='?', help='Optional. Get data for n days into the future from the provided day (inclusive).')
 args = parser.parse_args()
 
 month = args.month
@@ -40,11 +41,11 @@ if (month == 2 and day > 29):
 # Leap year
 if (not calendar.isleap(year) and day == 29):
     raise argparse.ArgumentTypeError("February does not have 29 day for the given year.")
-if (futureDays < 1):
-    raise argparse.ArgumentTypeError("Your value for range must be 1 or greater")
+if (futureDays < 0):
+    raise argparse.ArgumentTypeError("Your value for range must be 0 or greater")
 
 # Create datetime object
-date = datetime.date(year, month, day)
+date = datetime.datetime(year, month, day)
 
 # Set up logging structures
 LOG_FILENAME = 'MongoUpdater.log'
@@ -58,40 +59,41 @@ muLogger.addHandler(handler)
 
 # Connect to Mongo
 client = MongoClient('mongodb://localhost:27017/')
-db = client['learning_mongo']
+db = client['shuttle_db']
 
-# Gets the data from ShuttleTimeChecker
+
+# Build up data to insert to Mongo
+dataToInsert = []
 stc = ShuttleTimeChecker()
-raw_data = stc.getShuttleSchedule(month, day, year)
-if (len(raw_data) == 0):
-    print("Cannot get data from ShuttleTimeChecker. Check the logs")
-else:
-    # Clean data, saving only the date and shuttle departure times (with status updates)
-    json_data = json.dumps(raw_data)
-    json_object = json.loads(json_data, object_pairs_hook=collections.OrderedDict)
-    #date = json_object['date']
-    #dateObject = datetime.datetime.strptime(date, "%Y-%m-%d")
-    # TODO: We need to guarantee that the date in the JSON is correct
-    dateObject = date
-    utmDepartureTimes = json_object['routes'][0]['stops'][0]['times']
-    utsgDepartureTimes = json_object['routes'][0]['stops'][1]['times']
-
-    # Insert data into Mongo
-    dataToInsert = {
-        "date": dateObject,
-        "utm_departures": utmDepartureTimes,
-        "utsg_departures": utsgDepartureTimes
-    }
-    collection = db.cars
-    insertResult = collection.insert_one(dataToInsert)
-
-    # Verify data has been written
-    if (insertResult.acknowledged):
-        print("Insert success")
+for i in range(futureDays + 1):
+    # Get data from ShuttleTimeChecker
+    raw_data = stc.getShuttleSchedule(date.month, date.day, date.year)
+    if (len(raw_data) == 0):
+        print("Cannot get data from ShuttleTimeChecker. Check the logs")
+        date = date + timedelta(days=1)
     else:
-        print("Insert fail")
-        muLogger.warning("Insert Fail")
-        muLogger.warning(insertResult.acknowledged)
+        # Clean data, saving only the date and shuttle departure times (with status updates)
+        json_data = json.dumps(raw_data)
+        json_object = json.loads(json_data, object_pairs_hook=collections.OrderedDict)
+        #dateToCheck = json_object['date']
+        #dateObject = datetime.datetime.strptime(dateToCheck, "%Y-%m-%d")
+        # TODO: We need to guarantee that the date in the JSON is correct
+        utmDepartureTimes = json_object['routes'][0]['stops'][0]['times']
+        utsgDepartureTimes = json_object['routes'][0]['stops'][1]['times']
 
-    # The _id of the document that was just inserted
-    # documentId = insertResult.inserted_id
+        dataToInsert.append({
+            "date": date,
+            "utm_departures": utmDepartureTimes,
+            "utsg_departures": utsgDepartureTimes
+        })
+        date = date + timedelta(days=1)
+
+# Insert data into Mongo
+insertResult = db.shuttle_data.insert_many(dataToInsert)
+
+# Verify data has been written
+if (insertResult.acknowledged):
+    print("Insert success")
+else:
+    print("Insert fail")
+    muLogger.warning("Insert Fail, could not insert the following data:\n" + dataToInsert + "\n\n\n")

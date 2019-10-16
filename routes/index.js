@@ -1,7 +1,6 @@
 const express = require('express');
 const os = require('os');
 let calendarData = require('../data/calendar.json');
-const { body, validationResult } = require('express-validator');
 
 const router = express.Router();
 
