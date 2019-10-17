@@ -40,48 +40,48 @@ More explanations coming _soon_
 1: Ensure that you have fulfilled all the requirements from above
 
 2: Clone this repo:  
-    ⋅⋅⋅`$ git clone https://github.com/matthuynh/shuttle-time-finder.git`
+    `$ git clone https://github.com/matthuynh/shuttle-time-finder.git`
 
 3: Install node module dependencies  
-    ⋅⋅⋅`$ cd shuttle-time-finder`  
-    ⋅⋅⋅`$ npm install`  
+    `$ cd shuttle-time-finder`  
+    `$ npm install`  
 
 4: Initialize the Mongo server  
-    ⋅⋅⋅Start up an instance of Mongo on localhost:27017. Be sure to leave this server up.  
-    ⋅⋅⋅`$ mongod`  
-    ⋅⋅⋅Create a shuttle_db db and inside this db, create a shuttle_data collection  
-    ⋅⋅⋅```  
-    ⋅⋅⋅$ mongo  
-    ⋅⋅⋅<Inside Mongo shell>  
-    ⋅⋅⋅$ use shuttle_db  
-    ⋅⋅⋅$ db.createCollection("shuttle_data")  
-    ⋅⋅⋅```  
+    Start up an instance of Mongo on localhost:27017. Be sure to leave this server up.  
+    `$ mongod`  
+    Create a shuttle_db db and inside this db, create a shuttle_data collection  
+    ```  
+    $ mongo  
+    <Inside Mongo shell>  
+    $ use shuttle_db  
+    $ db.createCollection("shuttle_data")  
+    ```  
 
 5: Create shuttle-time-finder/.env  
-    ⋅⋅⋅```  
-    ⋅⋅⋅$ pwd  
-    ⋅⋅⋅/Documents/shuttle-time-finder  
-    ⋅⋅⋅$ vi .env  
-    ⋅⋅⋅```  
-    ⋅⋅⋅Inside your .env file, be sure to set these variables:  
-    ⋅⋅⋅```  
-    ⋅⋅⋅DATABASE=mongodb://localhost:27017/shuttle_db  
-    ⋅⋅⋅COLLECTION_PATH=db.shuttle_data  
-    ⋅⋅⋅GOOGLE_KEY=<Your_API_Key_Here>  
-    ⋅⋅⋅```  
+    ```  
+    $ pwd  
+    /Documents/shuttle-time-finder  
+    $ vi .env  
+    ```  
+    Inside your .env file, be sure to set these variables:  
+    ```  
+    DATABASE=mongodb://localhost:27017/shuttle_db  
+    COLLECTION_PATH=db.shuttle_data  
+    GOOGLE_KEY=<Your_API_Key_Here>  
+    ```  
 
 6: Populate the Mongo server  
-    ⋅⋅⋅You will need to run the Python script found at shuttle-time-finder/webscraper/MongoUpdater.py  
-    ⋅⋅⋅`$ pwd`  
-    ⋅⋅⋅/Documents/shuttle-time-finder/webscraper  
-    ⋅⋅⋅`$ python3 MongoUpdater.py 10 17 2019 10`  
-    ⋅⋅⋅This will webscrape shuttle bus data for the days starting from Oct 17, 2019 until Oct 27, 2019.  
-    ⋅⋅⋅To learn more about the script options, do `$ python3 MongoUpdater.py -h`  
-    ⋅⋅⋅Note that this script is meant to run periodically as a cron job in order to maintain accurate ⋅⋅⋅shuttle data.  
+    You will need to run the Python script found at shuttle-time-finder/webscraper/MongoUpdater.py  
+    `$ pwd`  
+    /Documents/shuttle-time-finder/webscraper  
+    `$ python3 MongoUpdater.py 10 17 2019 10`  
+    This will webscrape shuttle bus data for the days starting from Oct 17, 2019 until Oct 27, 2019.  
+    To learn more about the script options, do `$ python3 MongoUpdater.py -h`  
+    Note that this script is meant to run periodically as a cron job in order to maintain accurate shuttle data.  
     
 7: You can (finally) run the server now!  
-    ⋅⋅⋅`$ npm run watch`  
-    ⋅⋅⋅The project should start on your localhost on port 3000. To view on your browser, navigate to ⋅⋅⋅`localhost:3000`.
+    `$ npm run watch`  
+    The project should start on your localhost on port 3000. To view on your browser, navigate to `localhost:3000`.
 
 ----------
 # Sources
