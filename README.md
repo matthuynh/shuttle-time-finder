@@ -39,48 +39,48 @@ More explanations coming _soon_
 ## To install and run an instance on your local machine, do
 1: Ensure that you have fulfilled all the requirements from above
 
-2: Clone this repo: 
+2: Clone this repo:  
     `$ git clone https://github.com/matthuynh/shuttle-time-finder.git`
 
-3: Install node module dependencies
-    `$ cd shuttle-time-finder`
-    `$ npm install`
+3: Install node module dependencies  
+    `$ cd shuttle-time-finder`  
+    `$ npm install`  
 
-4: Initialize the Mongo server
-    Start up an instance of Mongo on localhost:27017. Be sure to leave this server up.
-    `$ mongod`
-    Create a shuttle_db db and inside this db, create a shuttle_data collection
-    ```
-    $ mongo
-    <Inside Mongo shell>
-    $ use shuttle_db
-    $ db.createCollection("shuttle_data")
-    ```
+4: Initialize the Mongo server  
+    Start up an instance of Mongo on localhost:27017. Be sure to leave this server up.  
+    `$ mongod`  
+    Create a shuttle_db db and inside this db, create a shuttle_data collection  
+    ```  
+    $ mongo  
+    <Inside Mongo shell>  
+    $ use shuttle_db  
+    $ db.createCollection("shuttle_data")  
+    ```  
 
-5: Create shuttle-time-finder/.env
-    ```
-    $ pwd
-    /Documents/shuttle-time-finder
-    $ vi .env
-    ```
-    Inside your .env file, be sure to set these variables:
-    ```
-    DATABASE=mongodb://localhost:27017/shuttle_db
-    COLLECTION_PATH=db.shuttle_data
-    GOOGLE_KEY=<Your_API_Key_Here>
-    ```
+5: Create shuttle-time-finder/.env  
+    ```  
+    $ pwd  
+    /Documents/shuttle-time-finder  
+    $ vi .env  
+    ```  
+    Inside your .env file, be sure to set these variables:  
+    ```  
+    DATABASE=mongodb://localhost:27017/shuttle_db  
+    COLLECTION_PATH=db.shuttle_data  
+    GOOGLE_KEY=<Your_API_Key_Here>  
+    ```  
 
-6: Populate the Mongo server
-    You will need to run the Python script found at shuttle-time-finder/webscraper/MongoUpdater.py
-    `$ pwd`
-    /Documents/shuttle-time-finder/webscraper
-    `$ python3 MongoUpdater.py 10 17 2019 10`
-    This will webscrape shuttle bus data for the days starting from Oct 17, 2019 until Oct 27, 2019.
-    To learn more about the script options, do `$ python3 MongoUpdater.py -h`
-    Note that this script is meant to run periodically as a cron job in order to maintain accurate shuttle data.
+6: Populate the Mongo server  
+    You will need to run the Python script found at shuttle-time-finder/webscraper/MongoUpdater.py  
+    `$ pwd`  
+    /Documents/shuttle-time-finder/webscraper  
+    `$ python3 MongoUpdater.py 10 17 2019 10`  
+    This will webscrape shuttle bus data for the days starting from Oct 17, 2019 until Oct 27, 2019.  
+    To learn more about the script options, do `$ python3 MongoUpdater.py -h`  
+    Note that this script is meant to run periodically as a cron job in order to maintain accurate shuttle data.  
     
-7: You can (finally) run the server now!
-    `$ npm run watch`
+7: You can (finally) run the server now!  
+    `$ npm run watch`  
     The project should start on your localhost on port 3000. To view on your browser, navigate to `localhost:3000`.
 
 ----------
@@ -95,11 +95,11 @@ More explanations coming _soon_
     - Proposed solution: update the dropdown for Day depending on the Month and Year chosen
 
 # Future Roadmap
-- [] JEST tests
-- [] Updated front end using React
-- [] More functionality and customizability for the user (eg. the ability to view various shuttle schedule times, the ability to choose when to arrive)
-- [] Leverage the Directions API to provide more functionality (eg. traffic data, the ability to choose between walking, biking, transit, and driving)
-- [] Improved search functionality and redundancy for UofT buildings
-- [] The ability to get the user's current location (will require React to be implemented first)
-- [] https://github.com/timoxley/best-practices
-- [] https://gist.github.com/sidorares/c49750ed8f7750afd5ad
+- [ ] JEST tests
+- [ ] Updated front end using React
+- [ ] More functionality and customizability for the user (eg. the ability to view various shuttle schedule times, the ability to choose when to arrive)
+- [ ] Leverage the Directions API to provide more functionality (eg. traffic data, the ability to choose between walking, biking, transit, and driving)
+- [ ] Improved search functionality and redundancy for UofT buildings
+- [ ] The ability to get the user's current location (will require React to be implemented first)
+- [ ] https://github.com/timoxley/best-practices
+- [ ] https://gist.github.com/sidorares/c49750ed8f7750afd5ad
