@@ -1,0 +1,1063 @@
+{
+    "Buildings": ["University College", "Hart House", "Gerstein Science Information Centre in the Sigmund Samuel Library Bldg", "McMurrich Building", "Medical Sciences Building", "John P. Robarts Library Building", "Claude T. Bissell Building", "Thomas Fisher Rare Book Library Building", "Lassonde Mining Building", "Wallberg Building", "D.L. Pratt Building", "Sandford Fleming Building", "Simcoe Hall", "Convocation Hall", "C. David Naylor Building", "Munk School of Global Affairs at Trinity", "Munk School of Global Affairs - Graham Library", "Whitney Hall", "Bloor Street West-371", "Banting Institute", "Queen's Park-90", "Central Steam Plant", "J. Robert S. Prichard Alumni House", "Rosebrugh Building", "Engineering Annex", "Mechanical Engineering Building", "University College Union", "Haultain Building", "FitzGerald Building", "Cumberland House", "St. George Street-45", "230 College Street", "Sir Daniel Wilson Residence", "Varsity Centre", "Wetmore Hall-New College", "Wilson Hall-New College", "Sidney Smith Hall", "Massey College", "Astronomy & Astrophysics Building", "Woodsworth College", "St. George Street-49", "Faculty of Law", "Varsity Pavilion", "Goldring Centre for High Performance Sport", "School of Graduate Studies", "Canadiana Gallery", "Falconer Hall", "Edward Johnson Building", "Best Institute", "Leighton Goldie McCarthy House (Child Study)", "Daniels Building", "Graduate Students' Union", "Bancroft Building", "Borden Building South", "Borden Building North", "Earth Sciences Centre", "Graduate House", "Dentistry Building", "Spadina Avenue-665", "Huron Street-215", "Clara Benson Building", "Warren Stevens Building", "Galbraith Building", "College Street-92", "Ramsay Wright Laboratories", "Lash Miller Chemical Laboratories", "Faculty Club", "Sussex Court", "McLennan Physical Laboratories", "Anthropology Building", "Bahen Centre for Information Technology", "Gage Building", "McCaul Street-254/256", "College Street - 245", "Centre for Engineering Innovation and Entrepreneurship (Under Construction)", "St. George Street123", "Munk School of Global Affairs at the Observatory", "College Street-88", "Luella Massey Studio Theatre", "Communication House", "Electrometallurgy Lab", "Back Campus Fields", "Queen's Park Crescent East-39", "Queen's Park Crsc. E.-39A", "Wellesley Street West -90", "Morrison Hall", "Soldiers' Tower", "School of Continuing Studies", "Max Gluskin House", "Fields Inst for Research in Math Science", "St. George Street-162", "St. George Street-121", "Factor-Inwentash Faculty of Social Work", "Louis B. Stewart Observatory (UTSU)", "Ontario Institute for Studies in Education", "Spadina Avenue-703", "Enrolment Services", "Jackman Humanities Building", "Early Learning Centre", "Woodsworth College Residence", "New College III", "Innis College", "Innis College Student Residence", "Rotman School of Management", "Huron Street-370", "Devonshire Place-100 (Demolished Feb, 2012)", "Spadina Ave-713", "Koffler Student Services Centre", "Koffler House", "Sussex Avenue-40", "Fasken Martineau Building", "Rehabilitation Sciences Building", "Spadina Road-56", "Health Sciences Building", "Exam Centre", "Old Admin Bldg (Board of Ed)", "Chestnut Residence and Conference Centre", "Terrence Donnelly Ctr for Cellular & Biomolecular Res", "Leslie L. Dan Pharmacy Building", "Spadina Ave-455", "Macdonald-Mowat House", "College Street-229", "Spadina Avenue-720", "Stewart Building", "Edward Street-123", "TWH-Krembil Discovery Tower", "MARS 2", "Bladen Wing (B-Wing)", "Humanities Wing (H-Wing)", "Portable 101", "Portable 102", "Portable 103", "Social Sciences Building", "Portable 104", "Portable 105", "Portable 106", "Highland Hall (Under Construction)", "Science Wing (S-Wing)", "Academic Resource Centre", "UTSC Student Centre", "Arts & Admin Building", "Science Research Building", "Instructional Centre (UTSC)", "Environmental Science & Chemistry", "Toronto Pan Am Sports Centre", "Block A (Student Townhouse Res-Phase I)", "Block B (Student Townhouse Res-Phase I)", "Block C (Student Townhouse Res-Phase I)", "Block D (Student Townhouse Res-Phase I)", "Block E (Student Townhouse Res-Phase I)", "Block F (Student Townhouse Res-Phase II)", "Block G (Student Townhouse Res-Phase II)", "Block H (Student Townhouse Res-Phase II)", "Block I (Student Townhouse Res-Phase II)", "Block J(Student Townhouse Res-Phase III)", "Block K(Student Townhouse Res-Phase III)", "Block L(Student Townhouse Res-Phase III)", "Block M(Student Townhouse Res-Phase III)", "Joan Foley Hall (Student Res-Phase IV)", "Student Residence Centre", "N'sheemaehn Child Care Centre", "Harbutt House (Vacant)", "Coach House - Old Kingston Rd", "Miller Lash House", "Lislehurst (Principal's Residence)", "Forensic Anthropology Field School", "North Building", "Central Utilities Plant", "William G. Davis Building", "Kaneff Centre", "Innovation Complex", "Erindale Studio Theatre", "Paleomagnetism Laboratory", "Schreiberwood Res - Block A (Phase I)", "Schreiberwood Res - Block B (Phase I)", "Schreiberwood Res - Block C (Phase I)", "Schreiberwood Res - Block D (Phase I)", "Schreiberwood Res - Block E (Phase I)", "Schreiberwood Res - Block F (Phase I)", "Schreiberwood Res - Block G (Phase I)", "McLuhan Court Res - Block H (Phase II)", "McLuhan Court Res - Block I (Phase II)", "McLuhan Court Res - Block J (Phase II)", "McLuhan Court Res - Block K (Phase II)", "Putnam Place Res - Block L  (Phase III)", "Putnam Place Res - Block M (Phase III)", "Putnam Place Res - Block N (Phase III)", "Putnam Place Res - Block O (Phase III)", "Leacock Lane Res - Block P (Phase IV)", "Leacock Lane Res - Block Q (Phase IV)", "Leacock Lane Res - Block R (Phase IV)", "Leacock Lane Res - Block S (Phase IV)", "MaGrath Valley Res - Block T (Phase V)", "MaGrath Valley Res - Block U (Phase V)", "MaGrath Valley Res - Block V (Phase V)", "MaGrath Valley Res - Block W (Phase V)", "MaGrath Valley Res - Block X (Phase V)", "MaGrath Valley Res - Block Y (Phase V)", "Roy Ivor Hall Res - House A (Phase VI)", "Roy Ivor Hall Res - House B (Phase VI)", "Roy Ivor Hall Res - House C (Phase VI)", "Roy Ivor Hall Res - House D (Phase VI)", "Erindale Hall Residence (Phase VII)", "Oscar Peterson Hall (Phase VIII)", "UTM Student Centre", "Communication, Culture & Technology", "UTM Alumni House", "Hazel McCallion Academic Learning Centre", "Recreation, Athletics & Wellness Centre", "Terrence Donnelly Health Sciences Complex", "Instructional Centre (UTM)", "Academic Annex", "Grounds Storage Facility", "Biology Research Greenhouse", "Deerfield Hall", "North Building Reconstruction  (Under Construction)", "Loretto College", "Elmsley Hall", "Muzzo Family Alumni Hall", "Brennan Hall", "St. Basil's Church", "Odette (Louis) Hall", "Windle House", "Phelan House", "Queen's Park Crescent East-59", "More House", "Fisher House", "Teefy Hall", "Gilson House", "Maritain House", "Sullivan House", "Carr Hall", "McCorkell House", "Founders House", "J. M. Kelly Library", "Cardinal Flahiff Building", "Queen's Park Crescent East-43", "Toronto School of Theology", "Sam Sorbara Hall Student Residence", "Regis College", "Victoria College", "Emmanuel College", "Birge-Carnegie Library", "Burwash Hall", "Burwash Residence (Lower Houses)", "Burwash Residence (Upper Houses)", "Annesley Hall", "Goldring Student Centre", "Margaret Addison Hall", "Isabel Bader Theatre", "Stephenson House", "E.J. Pratt Library", "Northrop Frye Hall", "Charles Street West-65", "Rowell Jackman Hall", "Lillian Massey Building", "Knox College", "Nona Macdonald Visitors Centre", "Trinity College", "Gerald Larkin Building", "George Ignatieff Theatre", "St. Hilda's College", "Wycliffe College", "Charles St. West-30", "Charles St. West-35"],
+    "University College": {
+      "lat": 43.66319655917286,
+      "long": -79.395819910554
+    },
+    "Hart House": {
+      "lat": 43.663700559989046,
+      "long": -79.3945183686304
+    },
+    "Gerstein Science Information Centre in the Sigmund Samuel Library Bldg": {
+      "lat": 43.66220455260483,
+      "long": -79.393846475272
+    },
+    "McMurrich Building": {
+      "lat": 43.66110823306933,
+      "long": -79.392874174504
+    },
+    "Medical Sciences Building": {
+      "lat": 43.660739554480855,
+      "long": -79.3937338224935
+    },
+    "John P. Robarts Library Building": {
+      "lat": 43.664451945321126,
+      "long": -79.3994502804565
+    },
+    "Claude T. Bissell Building": {
+      "lat": 43.66502918130166,
+      "long": -79.3992973945427
+    },
+    "Thomas Fisher Rare Book Library Building": {
+      "lat": 43.66405418284699,
+      "long": -79.398935296325
+    },
+    "Lassonde Mining Building": {
+      "lat": 43.659502525205575,
+      "long": -79.3933891586351
+    },
+    "Wallberg Building": {
+      "lat": 43.65912364957695,
+      "long": -79.3951909325409
+    },
+    "D.L. Pratt Building": {
+      "lat": 43.65963205070242,
+      "long": -79.3946933827686
+    },
+    "Sandford Fleming Building": {
+      "lat": 43.66012007293862,
+      "long": -79.3951037607479
+    },
+    "Simcoe Hall": {
+      "lat": 43.6607633248092,
+      "long": -79.395939268856
+    },
+    "Convocation Hall": {
+      "lat": 43.66077496731175,
+      "long": -79.3953880749035
+    },
+    "C. David Naylor Building": {
+      "lat": 43.660430057195335,
+      "long": -79.3917597166586
+    },
+    "Munk School of Global Affairs at Trinity": {
+      "lat": 43.66529984970937,
+      "long": -79.3967868469047
+    },
+    "Munk School of Global Affairs - Graham Library": {
+      "lat": 43.665068957024474,
+      "long": -79.3963523290443
+    },
+    "Whitney Hall": {
+      "lat": 43.663755374135995,
+      "long": -79.3979388556766
+    },
+    "Bloor Street West-371": {
+      "lat": 43.66668130671138,
+      "long": -79.4022290489959
+    },
+    "Banting Institute": {
+      "lat": 43.660492150860854,
+      "long": -79.388589345603
+    },
+    "Queen's Park-90": {
+      "lat": 0,
+      "long": 0
+    },
+    "Central Steam Plant": {
+      "lat": 43.66002693188444,
+      "long": -79.397744395523
+    },
+    "J. Robert S. Prichard Alumni House": {
+      "lat": 43.66208716010893,
+      "long": -79.3966601125288
+    },
+    "Rosebrugh Building": {
+      "lat": 43.660054583141815,
+      "long": -79.3932268849897
+    },
+    "Engineering Annex": {
+      "lat": 43.659597122598235,
+      "long": -79.3954148969936
+    },
+    "Mechanical Engineering Building": {
+      "lat": 43.65993427563183,
+      "long": -79.3940288654852
+    },
+    "University College Union": {
+      "lat": 43.66338477174165,
+      "long": -79.39746678689
+    },
+    "Haultain Building": {
+      "lat": 43.65994252264234,
+      "long": -79.3936352513122
+    },
+    "FitzGerald Building": {
+      "lat": 43.66006234490184,
+      "long": -79.3924503854799
+    },
+    "Cumberland House": {
+      "lat": 43.65946129055228,
+      "long": -79.3958963535118
+    },
+    "St. George Street-45": {
+      "lat": 43.66036,
+      "long": -79.39655
+    },
+    "230 College Street": {
+      "lat": 43.658682190974226,
+      "long": -79.397913374691
+    },
+    "Sir Daniel Wilson Residence": {
+      "lat": 43.662638709096576,
+      "long": -79.397531159906
+    },
+    "Varsity Centre": {
+      "lat": 43.66724,
+      "long": -79.3963
+    },
+    "Wetmore Hall-New College": {
+      "lat": 43.66223753899295,
+      "long": -79.4005908898401
+    },
+    "Wilson Hall-New College": {
+      "lat": 43.66176311667377,
+      "long": -79.4003508321333
+    },
+    "Sidney Smith Hall": {
+      "lat": 43.66237579019846,
+      "long": -79.3986617110061
+    },
+    "Massey College": {
+      "lat": 43.66483612312723,
+      "long": -79.3972750089454
+    },
+    "Astronomy & Astrophysics Building": {
+      "lat": 43.66066,
+      "long": -79.39734
+    },
+    "Woodsworth College": {
+      "lat": 43.66639900309655,
+      "long": -79.3987877748298
+    },
+    "St. George Street-49": {
+      "lat": 0,
+      "long": 0
+    },
+    "Faculty of Law": {
+      "lat": 43.66593,
+      "long": -79.39384
+    },
+    "Varsity Pavilion": {
+      "lat": 43.666433,
+      "long": -79.39643
+    },
+    "Goldring Centre for High Performance Sport": {
+      "lat": 43.6672272,
+      "long": -79.3984
+    },
+    "School of Graduate Studies": {
+      "lat": 43.66199935813239,
+      "long": -79.3971140764045
+    },
+    "Canadiana Gallery": {
+      "lat": 43.66191543670893,
+      "long": -79.392918430953
+    },
+    "Falconer Hall": {
+      "lat": 43.666688582539344,
+      "long": -79.3939604691553
+    },
+    "Edward Johnson Building": {
+      "lat": 43.6665508262648,
+      "long": -79.3945760361242
+    },
+    "Best Institute": {
+      "lat": 43.66036990387816,
+      "long": -79.3892867199468
+    },
+    "Leighton Goldie McCarthy House (Child Study)": {
+      "lat": 43.66967,
+      "long": -79.40607
+    },
+    "Daniels Building": {
+      "lat": 43.65969,
+      "long": -79.40076
+    },
+    "Graduate Students' Union": {
+      "lat": 43.660826388406655,
+      "long": -79.4002536020565
+    },
+    "Bancroft Building": {
+      "lat": 43.66093068564293,
+      "long": -79.3997245363283
+    },
+    "Borden Building South": {
+      "lat": 43.660071076909205,
+      "long": -79.399673574357
+    },
+    "Borden Building North": {
+      "lat": 43.66041065293638,
+      "long": -79.3999967805433
+    },
+    "Earth Sciences Centre": {
+      "lat": 43.661099501245644,
+      "long": -79.399303429513
+    },
+    "Graduate House": {
+      "lat": 43.663376525335316,
+      "long": -79.4016436568784
+    },
+    "Dentistry Building": {
+      "lat": 43.65627448600932,
+      "long": -79.3871449760484
+    },
+    "Spadina Avenue-665": {
+      "lat": 43.66446,
+      "long": -79.40223
+    },
+    "Huron Street-215": {
+      "lat": 43.659297806582664,
+      "long": -79.3982372514295
+    },
+    "Clara Benson Building": {
+      "lat": 43.662942859315585,
+      "long": -79.400203310637
+    },
+    "Warren Stevens Building": {
+      "lat": 43.66278666117544,
+      "long": -79.401021384387
+    },
+    "Galbraith Building": {
+      "lat": 43.65988139854955,
+      "long": -79.3961860320854
+    },
+    "College Street-92": {
+      "lat": 0,
+      "long": 0
+    },
+    "Ramsay Wright Laboratories": {
+      "lat": 43.66311506487241,
+      "long": -79.3989849171924
+    },
+    "Lash Miller Chemical Laboratories": {
+      "lat": 43.661397838050824,
+      "long": -79.3978127918529
+    },
+    "Faculty Club": {
+      "lat": 43.66115286242385,
+      "long": -79.4004889658975
+    },
+    "Sussex Court": {
+      "lat": 43.66483612316502,
+      "long": -79.400894650011
+    },
+    "McLennan Physical Laboratories": {
+      "lat": 43.660710933566016,
+      "long": -79.3982714495945
+    },
+    "Anthropology Building": {
+      "lat": 43.65987169638199,
+      "long": -79.398449816494
+    },
+    "Bahen Centre for Information Technology": {
+      "lat": 43.65966794914353,
+      "long": -79.397374250679
+    },
+    "Gage Building": {
+      "lat": 43.65819609756056,
+      "long": -79.3970939598369
+    },
+    "McCaul Street-254/256": {
+      "lat": 43.65857109807999,
+      "long": -79.3936037353563
+    },
+    "College Street - 245": {
+      "lat": 43.65893,
+      "long": -79.39355
+    },
+    "Centre for Engineering Innovation and Entrepreneurship (Under Construction)": {
+      "lat": 43.66079,
+      "long": -79.39657
+    },
+    "St. George Street123": {
+      "lat": 43.666900551888155,
+      "long": -79.3992115638542
+    },
+    "Munk School of Global Affairs at the Observatory": {
+      "lat": 43.66747000352004,
+      "long": -79.398519553928
+    },
+    "College Street-88": {
+      "lat": 43.66077157160064,
+      "long": -79.3878436914968
+    },
+    "Luella Massey Studio Theatre": {
+      "lat": 43.664349109423604,
+      "long": -79.4010730169105
+    },
+    "Communication House": {
+      "lat": 43.65893,
+      "long": -79.39355
+    },
+    "Electrometallurgy Lab": {
+      "lat": 43.65946905241543,
+      "long": -79.39529687979
+    },
+    "Back Campus Fields": {
+      "lat": 43.66386,
+      "long": -79.39636
+    },
+    "Queen's Park Crescent East-39": {
+      "lat": 43.664242392753735,
+      "long": -79.3904112360763
+    },
+    "Queen's Park Crsc. E.-39A": {
+      "lat": 43.66431224369719,
+      "long": -79.3898063979435
+    },
+    "Wellesley Street West -90": {
+      "lat": 43.66403817512182,
+      "long": -79.3897279433298
+    },
+    "Morrison Hall": {
+      "lat": 43.66309954213775,
+      "long": -79.3976076028633
+    },
+    "Soldiers' Tower": {
+      "lat": 43.66350992309996,
+      "long": -79.3952164135265
+    },
+    "School of Continuing Studies": {
+      "lat": 43.666704589426224,
+      "long": -79.3999210081386
+    },
+    "Max Gluskin House": {
+      "lat": 43.66615453296803,
+      "long": -79.3996970436859
+    },
+    "Fields Inst for Research in Math Science": {
+      "lat": 43.65879376874734,
+      "long": -79.3974480114269
+    },
+    "St. George Street-162": {
+      "lat": 43.66711,
+      "long": -79.40004
+    },
+    "St. George Street-121": {
+      "lat": 43.66668712738649,
+      "long": -79.3991015932846
+    },
+    "Factor-Inwentash Faculty of Social Work": {
+      "lat": 43.66829361310306,
+      "long": -79.3977323255825
+    },
+    "Louis B. Stewart Observatory (UTSU)": {
+      "lat": 43.66314611035052,
+      "long": -79.3946799717235
+    },
+    "Ontario Institute for Studies in Education": {
+      "lat": 43.668277121589846,
+      "long": -79.3984565220165
+    },
+    "Spadina Avenue-703": {
+      "lat": 43.66571797663791,
+      "long": -79.4026488147068
+    },
+    "Enrolment Services": {
+      "lat": 43.668115116811045,
+      "long": -79.4004587910461
+    },
+    "Jackman Humanities Building": {
+      "lat": 43.66766208308606,
+      "long": -79.4003233394909
+    },
+    "Early Learning Centre": {
+      "lat": 43.663909629488785,
+      "long": -79.4011467776584
+    },
+    "Woodsworth College Residence": {
+      "lat": 43.6673312789927,
+      "long": -79.399330922155
+    },
+    "New College III": {
+      "lat": 43.661006361670275,
+      "long": -79.4007759622621
+    },
+    "Innis College": {
+      "lat": 43.66557148699452,
+      "long": -79.3994838080692
+    },
+    "Innis College Student Residence": {
+      "lat": 43.66592073316277,
+      "long": -79.39877302268
+    },
+    "Rotman School of Management": {
+      "lat": 43.6651853735736,
+      "long": -79.398286201744
+    },
+    "Huron Street-370": {
+      "lat": 43.664574183994326,
+      "long": -79.4006867788124
+    },
+    "Devonshire Place-100 (Demolished Feb, 2012)": {
+      "lat": 0,
+      "long": 0
+    },
+    "Spadina Ave-713": {
+      "lat": 43.66600901454478,
+      "long": -79.4028446159649
+    },
+    "Koffler Student Services Centre": {
+      "lat": 43.65916925066043,
+      "long": -79.3968860886383
+    },
+    "Koffler House": {
+      "lat": 43.660608576363494,
+      "long": -79.4005882076311
+    },
+    "Sussex Avenue-40": {
+      "lat": 43.665012688924,
+      "long": -79.4018119654941
+    },
+    "Fasken Martineau Building": {
+      "lat": 43.66406097393544,
+      "long": -79.4020345888424
+    },
+    "Rehabilitation Sciences Building": {
+      "lat": 43.65545944429152,
+      "long": -79.3891660205412
+    },
+    "Spadina Road-56": {
+      "lat": 43.66967,
+      "long": -79.40534
+    },
+    "Health Sciences Building": {
+      "lat": 43.659039724201534,
+      "long": -79.3928835622358
+    },
+    "Exam Centre": {
+      "lat": 43.658476013981854,
+      "long": -79.3928580812502
+    },
+    "Old Admin Bldg (Board of Ed)": {
+      "lat": 43.65880832236425,
+      "long": -79.392504700212
+    },
+    "Chestnut Residence and Conference Centre": {
+      "lat": 43.654308663892664,
+      "long": -79.3853586248445
+    },
+    "Terrence Donnelly Ctr for Cellular & Biomolecular Res": {
+      "lat": 43.66015645609399,
+      "long": -79.3928768567133
+    },
+    "Leslie L. Dan Pharmacy Building": {
+      "lat": 43.65995853126025,
+      "long": -79.391703390269
+    },
+    "Spadina Ave-455": {
+      "lat": 43.65820628517793,
+      "long": -79.3997030786562
+    },
+    "Macdonald-Mowat House": {
+      "lat": 43.66177136333075,
+      "long": -79.3970510444927
+    },
+    "College Street-229": {
+      "lat": 43.65816,
+      "long": -79.39745
+    },
+    "Spadina Avenue-720": {
+      "lat": 43.665399288509725,
+      "long": -79.403629832654
+    },
+    "Stewart Building": {
+      "lat": 43.65923474135822,
+      "long": -79.3920654884863
+    },
+    "Edward Street-123": {
+      "lat": 43.65564,
+      "long": -79.38677
+    },
+    "TWH-Krembil Discovery Tower": {
+      "lat": 43.65413,
+      "long": -79.40518
+    },
+    "MARS 2": {
+      "lat": 43.65958,
+      "long": -79.38972
+    },
+    "Bladen Wing (B-Wing)": {
+      "lat": 43.78432,
+      "long": -79.18685
+    },
+    "Humanities Wing (H-Wing)": {
+      "lat": 43.78345,
+      "long": -79.18704
+    },
+    "Portable 101": {
+      "lat": 43.78379,
+      "long": -79.18842
+    },
+    "Portable 102": {
+      "lat": 43.7839,
+      "long": -79.18856
+    },
+    "Portable 103": {
+      "lat": 43.78399,
+      "long": -79.18871
+    },
+    "Social Sciences Building": {
+      "lat": 43.78286,
+      "long": -79.18603
+    },
+    "Portable 104": {
+      "lat": 43.78412,
+      "long": -79.18899
+    },
+    "Portable 105": {
+      "lat": 43.7842,
+      "long": -79.18885
+    },
+    "Portable 106": {
+      "lat": 43.78262,
+      "long": -79.18562
+    },
+    "Highland Hall (Under Construction)": {
+      "lat": 43.78476,
+      "long": -79.18593
+    },
+    "Science Wing (S-Wing)": {
+      "lat": 43.78358,
+      "long": -79.18781
+    },
+    "Academic Resource Centre": {
+      "lat": 43.78418,
+      "long": -79.18643
+    },
+    "UTSC Student Centre": {
+      "lat": 43.78501,
+      "long": -79.18695
+    },
+    "Arts & Admin Building": {
+      "lat": 43.78458,
+      "long": -79.18735
+    },
+    "Science Research Building": {
+      "lat": 43.78426,
+      "long": -79.18949
+    },
+    "Instructional Centre (UTSC)": {
+      "lat": 43.78692,
+      "long": -79.18969
+    },
+    "Environmental Science & Chemistry": {
+      "lat": 43.78729,
+      "long": -79.19049
+    },
+    "Toronto Pan Am Sports Centre": {
+      "lat": 43.79065,
+      "long": -79.19362
+    },
+    "Block A (Student Townhouse Res-Phase I)": {
+      "lat": 43.78387,
+      "long": -79.18378
+    },
+    "Block B (Student Townhouse Res-Phase I)": {
+      "lat": 43.7835,
+      "long": -79.18406
+    },
+    "Block C (Student Townhouse Res-Phase I)": {
+      "lat": 43.78331,
+      "long": -79.18363
+    },
+    "Block D (Student Townhouse Res-Phase I)": {
+      "lat": 43.78306,
+      "long": -79.18421
+    },
+    "Block E (Student Townhouse Res-Phase I)": {
+      "lat": 43.78336,
+      "long": -79.18461
+    },
+    "Block F (Student Townhouse Res-Phase II)": {
+      "lat": 43.78268,
+      "long": -79.18452
+    },
+    "Block G (Student Townhouse Res-Phase II)": {
+      "lat": 43.78255,
+      "long": -79.18425
+    },
+    "Block H (Student Townhouse Res-Phase II)": {
+      "lat": 43.78283,
+      "long": -79.18366
+    },
+    "Block I (Student Townhouse Res-Phase II)": {
+      "lat": 43.78248,
+      "long": -79.18366
+    },
+    "Block J(Student Townhouse Res-Phase III)": {
+      "lat": 43.78565,
+      "long": -79.18971
+    },
+    "Block K(Student Townhouse Res-Phase III)": {
+      "lat": 43.7851,
+      "long": -79.18949
+    },
+    "Block L(Student Townhouse Res-Phase III)": {
+      "lat": 43.78529,
+      "long": -79.18905
+    },
+    "Block M(Student Townhouse Res-Phase III)": {
+      "lat": 43.78471,
+      "long": -79.18897
+    },
+    "Joan Foley Hall (Student Res-Phase IV)": {
+      "lat": 43.78297,
+      "long": -79.18515
+    },
+    "Student Residence Centre": {
+      "lat": 43.78332,
+      "long": -79.18517
+    },
+    "N'sheemaehn Child Care Centre": {
+      "lat": 43.78569,
+      "long": -79.1881
+    },
+    "Harbutt House (Vacant)": {
+      "lat": 43.77929,
+      "long": -79.18113
+    },
+    "Coach House - Old Kingston Rd": {
+      "lat": 43.77885,
+      "long": -79.18473
+    },
+    "Miller Lash House": {
+      "lat": 43.77996,
+      "long": -79.18539
+    },
+    "Lislehurst (Principal's Residence)": {
+      "lat": 43.55468,
+      "long": -79.66877
+    },
+    "Forensic Anthropology Field School": {
+      "lat": 43.55291,
+      "long": -79.66553
+    },
+    "North Building": {
+      "lat": 0,
+      "long": 0
+    },
+    "Central Utilities Plant": {
+      "lat": 43.55179,
+      "long": -79.66213
+    },
+    "William G. Davis Building": {
+      "lat": 43.54858,
+      "long": -79.66148
+    },
+    "Kaneff Centre": {
+      "lat": 43.54839,
+      "long": -79.66339
+    },
+    "Innovation Complex": {
+      "lat": 43.54837,
+      "long": -79.66292
+    },
+    "Erindale Studio Theatre": {
+      "lat": 43.54993,
+      "long": -79.66631
+    },
+    "Paleomagnetism Laboratory": {
+      "lat": 43.55381,
+      "long": -79.66586
+    },
+    "Schreiberwood Res - Block A (Phase I)": {
+      "lat": 43.54922,
+      "long": -79.6683
+    },
+    "Schreiberwood Res - Block B (Phase I)": {
+      "lat": 43.54913,
+      "long": -79.66788
+    },
+    "Schreiberwood Res - Block C (Phase I)": {
+      "lat": 43.54872,
+      "long": -79.6677
+    },
+    "Schreiberwood Res - Block D (Phase I)": {
+      "lat": 43.54907,
+      "long": -79.66738
+    },
+    "Schreiberwood Res - Block E (Phase I)": {
+      "lat": 43.54972,
+      "long": -79.66779
+    },
+    "Schreiberwood Res - Block F (Phase I)": {
+      "lat": 43.54943,
+      "long": -79.66744
+    },
+    "Schreiberwood Res - Block G (Phase I)": {
+      "lat": 43.54962,
+      "long": -79.6671
+    },
+    "McLuhan Court Res - Block H (Phase II)": {
+      "lat": 43.54789,
+      "long": -79.66572
+    },
+    "McLuhan Court Res - Block I (Phase II)": {
+      "lat": 43.5475,
+      "long": -79.66595
+    },
+    "McLuhan Court Res - Block J (Phase II)": {
+      "lat": 43.54772,
+      "long": -79.6666
+    },
+    "McLuhan Court Res - Block K (Phase II)": {
+      "lat": 43.54806,
+      "long": -79.66628
+    },
+    "Putnam Place Res - Block L  (Phase III)": {
+      "lat": 43.54647,
+      "long": -79.66459
+    },
+    "Putnam Place Res - Block M (Phase III)": {
+      "lat": 43.54666,
+      "long": -79.66507
+    },
+    "Putnam Place Res - Block N (Phase III)": {
+      "lat": 43.54695,
+      "long": -79.66511
+    },
+    "Putnam Place Res - Block O (Phase III)": {
+      "lat": 43.54688,
+      "long": -79.66449
+    },
+    "Leacock Lane Res - Block P (Phase IV)": {
+      "lat": 43.54627,
+      "long": -79.66256
+    },
+    "Leacock Lane Res - Block Q (Phase IV)": {
+      "lat": 43.54591,
+      "long": -79.66286
+    },
+    "Leacock Lane Res - Block R (Phase IV)": {
+      "lat": 43.54581,
+      "long": -79.66356
+    },
+    "Leacock Lane Res - Block S (Phase IV)": {
+      "lat": 43.54616,
+      "long": -79.66311
+    },
+    "MaGrath Valley Res - Block T (Phase V)": {
+      "lat": 43.54605,
+      "long": -79.66121
+    },
+    "MaGrath Valley Res - Block U (Phase V)": {
+      "lat": 43.54555,
+      "long": -79.66106
+    },
+    "MaGrath Valley Res - Block V (Phase V)": {
+      "lat": 43.54548,
+      "long": -79.66187
+    },
+    "MaGrath Valley Res - Block W (Phase V)": {
+      "lat": 43.54574,
+      "long": -79.66162
+    },
+    "MaGrath Valley Res - Block X (Phase V)": {
+      "lat": 43.54588,
+      "long": -79.66222
+    },
+    "MaGrath Valley Res - Block Y (Phase V)": {
+      "lat": 43.5462,
+      "long": -79.66178
+    },
+    "Roy Ivor Hall Res - House A (Phase VI)": {
+      "lat": 43.54807,
+      "long": -79.66701
+    },
+    "Roy Ivor Hall Res - House B (Phase VI)": {
+      "lat": 43.5484,
+      "long": -79.66744
+    },
+    "Roy Ivor Hall Res - House C (Phase VI)": {
+      "lat": 43.54846,
+      "long": -79.66699
+    },
+    "Roy Ivor Hall Res - House D (Phase VI)": {
+      "lat": 43.54882,
+      "long": -79.66698
+    },
+    "Erindale Hall Residence (Phase VII)": {
+      "lat": 43.54959,
+      "long": -79.66564
+    },
+    "Oscar Peterson Hall (Phase VIII)": {
+      "lat": 43.54877,
+      "long": -79.66598
+    },
+    "UTM Student Centre": {
+      "lat": 43.54895,
+      "long": -79.66394
+    },
+    "Communication, Culture & Technology": {
+      "lat": 43.55003,
+      "long": -79.66308
+    },
+    "UTM Alumni House": {
+      "lat": 43.54474,
+      "long": -79.66035
+    },
+    "Hazel McCallion Academic Learning Centre": {
+      "lat": 43.55095,
+      "long": -79.66282
+    },
+    "Recreation, Athletics & Wellness Centre": {
+      "lat": 43.5482,
+      "long": -79.66089
+    },
+    "Terrence Donnelly Health Sciences Complex": {
+      "lat": 43.54964,
+      "long": -79.66194
+    },
+    "Instructional Centre (UTM)": {
+      "lat": 43.55154,
+      "long": -79.66382
+    },
+    "Academic Annex": {
+      "lat": 43.54816,
+      "long": -79.66452
+    },
+    "Grounds Storage Facility": {
+      "lat": 43.55351,
+      "long": -79.6655
+    },
+    "Biology Research Greenhouse": {
+      "lat": 43.5508,
+      "long": -79.66207
+    },
+    "Deerfield Hall": {
+      "lat": 43.55042,
+      "long": -79.66629
+    },
+    "North Building Reconstruction  (Under Construction)": {
+      "lat": 43.55103,
+      "long": -79.66593
+    },
+    "Loretto College": {
+      "lat": 43.66736183708266,
+      "long": -79.390100770382
+    },
+    "Elmsley Hall": {
+      "lat": 43.66689133569867,
+      "long": -79.3902697495508
+    },
+    "Muzzo Family Alumni Hall": {
+      "lat": 43.66479198160499,
+      "long": -79.3901463679361
+    },
+    "Brennan Hall": {
+      "lat": 43.666364563794566,
+      "long": -79.389863394885
+    },
+    "St. Basil's Church": {
+      "lat": 43.66632284869429,
+      "long": -79.3891700438547
+    },
+    "Odette (Louis) Hall": {
+      "lat": 43.66635389249167,
+      "long": -79.3889071873712
+    },
+    "Windle House": {
+      "lat": 43.66601289505634,
+      "long": -79.3894939205932
+    },
+    "Phelan House": {
+      "lat": 43.66579946740982,
+      "long": -79.3894416175174
+    },
+    "Queen's Park Crescent East-59": {
+      "lat": 43.66568790265635,
+      "long": -79.3910388729858
+    },
+    "More House": {
+      "lat": 43.66560059096537,
+      "long": -79.3908631882953
+    },
+    "Fisher House": {
+      "lat": 43.665461862128474,
+      "long": -79.3908055208015
+    },
+    "Teefy Hall": {
+      "lat": 43.665324103106094,
+      "long": -79.3908739171314
+    },
+    "Gilson House": {
+      "lat": 43.66573543896801,
+      "long": -79.3900424323368
+    },
+    "Maritain House": {
+      "lat": 43.665642306566845,
+      "long": -79.39001963356
+    },
+    "Sullivan House": {
+      "lat": 43.665404624263296,
+      "long": -79.3899807415294
+    },
+    "Carr Hall": {
+      "lat": 43.66522854467064,
+      "long": -79.3905057839441
+    },
+    "McCorkell House": {
+      "lat": 43.665433728269406,
+      "long": -79.3898667476463
+    },
+    "Founders House": {
+      "lat": 43.66550988363074,
+      "long": -79.3893537751722
+    },
+    "J. M. Kelly Library": {
+      "lat": 43.6648453394831,
+      "long": -79.3895281187582
+    },
+    "Cardinal Flahiff Building": {
+      "lat": 0,
+      "long": 0
+    },
+    "Queen's Park Crescent East-43": {
+      "lat": 43.66455332578703,
+      "long": -79.3905889324236
+    },
+    "Toronto School of Theology": {
+      "lat": 43.66476093699955,
+      "long": -79.3906519643354
+    },
+    "Sam Sorbara Hall Student Residence": {
+      "lat": 43.66575532654301,
+      "long": -79.3890426389265
+    },
+    "Regis College": {
+      "lat": 43.66396347318962,
+      "long": -79.390280478386
+    },
+    "Victoria College": {
+      "lat": 43.666898126473924,
+      "long": -79.3920051387834
+    },
+    "Emmanuel College": {
+      "lat": 43.6667293272608,
+      "long": -79.3928218714285
+    },
+    "Birge-Carnegie Library": {
+      "lat": 43.667112520421476,
+      "long": -79.3929600051927
+    },
+    "Burwash Hall": {
+      "lat": 43.667438475209295,
+      "long": -79.391794585375
+    },
+    "Burwash Residence (Lower Houses)": {
+      "lat": 43.66638493638289,
+      "long": -79.390846424489
+    },
+    "Burwash Residence (Upper Houses)": {
+      "lat": 43.666917528661344,
+      "long": -79.3910623423147
+    },
+    "Annesley Hall": {
+      "lat": 43.667773159088526,
+      "long": -79.3929559818792
+    },
+    "Goldring Student Centre": {
+      "lat": 43.66764413624914,
+      "long": -79.3925992480802
+    },
+    "Margaret Addison Hall": {
+      "lat": 43.668260145051306,
+      "long": -79.3925187818098
+    },
+    "Isabel Bader Theatre": {
+      "lat": 43.66723281346622,
+      "long": -79.3924530676889
+    },
+    "Stephenson House": {
+      "lat": 43.66783184987208,
+      "long": -79.3899042985725
+    },
+    "E.J. Pratt Library": {
+      "lat": 43.66633740058605,
+      "long": -79.3913466564703
+    },
+    "Northrop Frye Hall": {
+      "lat": 43.66640821920836,
+      "long": -79.3921821645784
+    },
+    "Charles Street West-65": {
+      "lat": 43.66784,
+      "long": -79.39
+    },
+    "Rowell Jackman Hall": {
+      "lat": 43.66742295348751,
+      "long": -79.3908249668169
+    },
+    "Lillian Massey Building": {
+      "lat": 43.66834648269129,
+      "long": -79.3936748138952
+    },
+    "Knox College": {
+      "lat": 43.661362910842435,
+      "long": -79.3969598493862
+    },
+    "Nona Macdonald Visitors Centre": {
+      "lat": 43.6611882748143,
+      "long": -79.3962651572513
+    },
+    "Trinity College": {
+      "lat": 43.66513638156263,
+      "long": -79.3955604068327
+    },
+    "Gerald Larkin Building": {
+      "lat": 43.66566898509376,
+      "long": -79.3969108990717
+    },
+    "George Ignatieff Theatre": {
+      "lat": 43.66581984007549,
+      "long": -79.3971033475685
+    },
+    "St. Hilda's College": {
+      "lat": 43.66572961814705,
+      "long": -79.3978154740619
+    },
+    "Wycliffe College": {
+      "lat": 43.66453149750189,
+      "long": -79.3950675509262
+    },
+    "Charles St. West-30": {
+      "lat": 43.66899,
+      "long": -79.38648
+    },
+    "Charles St. West-35": {
+      "lat": 43.6681,
+      "long": -79.38765
+    }
+  }

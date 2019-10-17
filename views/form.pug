@@ -62,6 +62,23 @@ block dateContent
     input(type="radio", name="busStop", value="UTM", checked=(true==preselectedUTM))
     | UTM
 
+
+    //- Building Textfield
+    //- input(id='inp1' list='browsers')
+
+    //- datalist(id='browsers')
+    //-     each val in ['zero', 'one', 'two']
+    //-       option(value=val)
+
+    //- Building Textfield
+    input(name="buildingChosen", list='buildings_list', id='')
+
+    datalist(id='buildings_list')
+        each building in Buildings
+          option(value=building)
+
+    
+
     input(type='submit', value='Calculate', class="btn btn-lg btn-primary btn-block")
 
 
