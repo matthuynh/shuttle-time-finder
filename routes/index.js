@@ -2,14 +2,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const ShuttleData = mongoose.model('ShuttleData');
 const os = require('os');
-let calendarData = require('../data/calendar.json');
+const calendarData = require('../data/calendar.json');
+const building_data = require('../data/building_data.json');
 const dateFormat = require('dateformat');
 const router = express.Router();
 const request = require('request');
 require('dotenv').config();
 
-// let buildings = ['University College', 'Hart House', 'Gerstein Science Information Centre in the Sigmund Samuel Library Bldg', 'McMurrich Building', 'Medical Sciences Building', 'John P. Robarts Library Building', 'Claude T. Bissell Building', 'Thomas Fisher Rare Book Library Building', 'Lassonde Mining Building', 'Wallberg Building', 'D.L. Pratt Building', 'Sandford Fleming Building', 'Simcoe Hall', 'Convocation Hall', 'C. David Naylor Building', 'Munk School of Global Affairs at Trinity', 'Munk School of Global Affairs - Graham Library', 'Whitney Hall', 'Bloor Street West-371', 'Banting Institute', "Queen's Park-90", 'Central Steam Plant', 'J. Robert S. Prichard Alumni House', 'Rosebrugh Building', 'Engineering Annex', 'Mechanical Engineering Building', 'University College Union', 'Haultain Building', 'FitzGerald Building', 'Cumberland House', 'St. George Street-45', '230 College Street', 'Sir Daniel Wilson Residence', 'Varsity Centre', 'Wetmore Hall-New College', 'Wilson Hall-New College', 'Sidney Smith Hall', 'Massey College', 'Astronomy & Astrophysics Building', 'Woodsworth College', 'St. George Street-49', 'Faculty of Law', 'Varsity Pavilion', 'Goldring Centre for High Performance Sport', 'School of Graduate Studies', 'Canadiana Gallery', 'Falconer Hall', 'Edward Johnson Building', 'Best Institute', 'Leighton Goldie McCarthy House (Child Study)', 'Daniels Building', "Graduate Students' Union", 'Bancroft Building', 'Borden Building South', 'Borden Building North', 'Earth Sciences Centre', 'Graduate House', 'Dentistry Building', 'Spadina Avenue-665', 'Huron Street-215', 'Clara Benson Building', 'Warren Stevens Building', 'Galbraith Building', 'College Street-92', 'Ramsay Wright Laboratories', 'Lash Miller Chemical Laboratories', 'Faculty Club', 'Sussex Court', 'McLennan Physical Laboratories', 'Anthropology Building', 'Bahen Centre for Information Technology', 'Gage Building', 'McCaul Street-254/256', 'College Street - 245', 'Centre for Engineering Innovation and Entrepreneurship (Under Construction)', 'St. George Street123', 'Munk School of Global Affairs at the Observatory', 'College Street-88', 'Luella Massey Studio Theatre', 'Communication House', 'Electrometallurgy Lab', 'Back Campus Fields', "Queen's Park Crescent East-39", "Queen's Park Crsc. E.-39A", 'Wellesley Street West -90', 'Morrison Hall', "Soldiers' Tower", 'School of Continuing Studies', 'Max Gluskin House', 'Fields Inst for Research in Math Science', 'St. George Street-162', 'St. George Street-121', 'Factor-Inwentash Faculty of Social Work', 'Louis B. Stewart Observatory (UTSU)', 'Ontario Institute for Studies in Education', 'Spadina Avenue-703', 'Enrolment Services', 'Jackman Humanities Building', 'Early Learning Centre', 'Woodsworth College Residence', 'New College III', 'Innis College', 'Innis College Student Residence', 'Rotman School of Management', 'Huron Street-370', 'Devonshire Place-100 (Demolished Feb, 2012)', 'Spadina Ave-713', 'Koffler Student Services Centre', 'Koffler House', 'Sussex Avenue-40', 'Fasken Martineau Building', 'Rehabilitation Sciences Building', 'Spadina Road-56', 'Health Sciences Building', 'Exam Centre', 'Old Admin Bldg (Board of Ed)', 'Chestnut Residence and Conference Centre', 'Terrence Donnelly Ctr for Cellular & Biomolecular Res', 'Leslie L. Dan Pharmacy Building', 'Spadina Ave-455', 'Macdonald-Mowat House', 'College Street-229', 'Spadina Avenue-720', 'Stewart Building', 'Edward Street-123', 'TWH-Krembil Discovery Tower', 'MARS 2', 'Bladen Wing (B-Wing)', 'Humanities Wing (H-Wing)', 'Portable 101', 'Portable 102', 'Portable 103', 'Social Sciences Building', 'Portable 104', 'Portable 105', 'Portable 106', 'Highland Hall (Under Construction)', 'Science Wing (S-Wing)', 'Academic Resource Centre', 'UTSC Student Centre', 'Arts & Admin Building', 'Science Research Building', 'Instructional Centre (UTSC)', 'Environmental Science & Chemistry', 'Toronto Pan Am Sports Centre', 'Block A (Student Townhouse Res-Phase I)', 'Block B (Student Townhouse Res-Phase I)', 'Block C (Student Townhouse Res-Phase I)', 'Block D (Student Townhouse Res-Phase I)', 'Block E (Student Townhouse Res-Phase I)', 'Block F (Student Townhouse Res-Phase II)', 'Block G (Student Townhouse Res-Phase II)', 'Block H (Student Townhouse Res-Phase II)', 'Block I (Student Townhouse Res-Phase II)', 'Block J(Student Townhouse Res-Phase III)', 'Block K(Student Townhouse Res-Phase III)', 'Block L(Student Townhouse Res-Phase III)', 'Block M(Student Townhouse Res-Phase III)', 'Joan Foley Hall (Student Res-Phase IV)', 'Student Residence Centre', "N'sheemaehn Child Care Centre", 'Harbutt House (Vacant)', 'Coach House - Old Kingston Rd', 'Miller Lash House', "Lislehurst (Principal's Residence)", 'Forensic Anthropology Field School', 'North Building', 'Central Utilities Plant', 'William G. Davis Building', 'Kaneff Centre', 'Innovation Complex', 'Erindale Studio Theatre', 'Paleomagnetism Laboratory', 'Schreiberwood Res - Block A (Phase I)', 'Schreiberwood Res - Block B (Phase I)', 'Schreiberwood Res - Block C (Phase I)', 'Schreiberwood Res - Block D (Phase I)', 'Schreiberwood Res - Block E (Phase I)', 'Schreiberwood Res - Block F (Phase I)', 'Schreiberwood Res - Block G (Phase I)', 'McLuhan Court Res - Block H (Phase II)', 'McLuhan Court Res - Block I (Phase II)', 'McLuhan Court Res - Block J (Phase II)', 'McLuhan Court Res - Block K (Phase II)', 'Putnam Place Res - Block L  (Phase III)', 'Putnam Place Res - Block M (Phase III)', 'Putnam Place Res - Block N (Phase III)', 'Putnam Place Res - Block O (Phase III)', 'Leacock Lane Res - Block P (Phase IV)', 'Leacock Lane Res - Block Q (Phase IV)', 'Leacock Lane Res - Block R (Phase IV)', 'Leacock Lane Res - Block S (Phase IV)', 'MaGrath Valley Res - Block T (Phase V)', 'MaGrath Valley Res - Block U (Phase V)', 'MaGrath Valley Res - Block V (Phase V)', 'MaGrath Valley Res - Block W (Phase V)', 'MaGrath Valley Res - Block X (Phase V)', 'MaGrath Valley Res - Block Y (Phase V)', 'Roy Ivor Hall Res - House A (Phase VI)', 'Roy Ivor Hall Res - House B (Phase VI)', 'Roy Ivor Hall Res - House C (Phase VI)', 'Roy Ivor Hall Res - House D (Phase VI)', 'Erindale Hall Residence (Phase VII)', 'Oscar Peterson Hall (Phase VIII)', 'UTM Student Centre', 'Communication, Culture & Technology', 'UTM Alumni House', 'Hazel McCallion Academic Learning Centre', 'Recreation, Athletics & Wellness Centre', 'Terrence Donnelly Health Sciences Complex', 'Instructional Centre (UTM)', 'Academic Annex', 'Grounds Storage Facility', 'Biology Research Greenhouse', 'Deerfield Hall', 'North Building Reconstruction  (Under Construction)', 'Loretto College', 'Elmsley Hall', 'Muzzo Family Alumni Hall', 'Brennan Hall', "St. Basil's Church", 'Odette (Louis) Hall', 'Windle House', 'Phelan House', "Queen's Park Crescent East-59", 'More House', 'Fisher House', 'Teefy Hall', 'Gilson House', 'Maritain House', 'Sullivan House', 'Carr Hall', 'McCorkell House', 'Founders House', 'J. M. Kelly Library', 'Cardinal Flahiff Building', "Queen's Park Crescent East-43", 'Toronto School of Theology', 'Sam Sorbara Hall Student Residence', 'Regis College', 'Victoria College', 'Emmanuel College', 'Birge-Carnegie Library', 'Burwash Hall', 'Burwash Residence (Lower Houses)', 'Burwash Residence (Upper Houses)', 'Annesley Hall', 'Goldring Student Centre', 'Margaret Addison Hall', 'Isabel Bader Theatre', 'Stephenson House', 'E.J. Pratt Library', 'Northrop Frye Hall', 'Charles Street West-65', 'Rowell Jackman Hall', 'Lillian Massey Building', 'Knox College', 'Nona Macdonald Visitors Centre', 'Trinity College', 'Gerald Larkin Building', 'George Ignatieff Theatre', "St. Hilda's College", 'Wycliffe College', 'Charles St. West-30', 'Charles St. West-35'];
-let building_data = require('../data/building_data.json');
 let buildings = building_data.Buildings;
 
 let today = new Date();
@@ -68,26 +67,54 @@ router.post("/leaveAt" , function(req, res){
             if (isValidBuilding) {
               console.log("The building is valid");
 
-              // TODO: Get coordinates of building, pass into getGoogleDirections()
-              // TODO: Get origin campus, pass into getGoogleDirections()
+              // Determine how long the shuttle will take to travel between campuses
+              // This information is not wrapped in a Promise because it will simply
+              // just be displayed on the front end
+              let busStop = req.body.busStop;
+              let originBusStopCoordinates;
+              let destinationBusStopCoordinates
+              if (busStop == "UTSG") {
+                originBusStopCoordinates = "43.663700559989046,-79.3945183686304";
+                destinationBusStopCoordinates = "43.55154,-79.66382";
+              } else {
+                originBusStopCoordinates = "43.55154,-79.66382";
+                destinationBusStopCoordinates = "43.663700559989046,-79.3945183686304";
+              }
+              let busTripInformation = getGoogleDirections(originBusStopCoordinates, destinationBusStopCoordinates, "driving");
+              let busTripDuration = busTripInformation.routes[0].legs.duration.text;
 
-              // Call the Google Directions API
-              getGoogleDirections().then(
+              // Get coordinates of origin building (building to start walking from)
+              let originBuilding = req.body.buildingChosen;
+              
+              //let originBuildingCoordinates = `${building_data.originBuilding.lat},${building_data.originBuilding.long}`; // This gets the actual coordinates from the building_data.json file
+
+              // TODO: Literally just pass in the user's search query, prepended with either "UTM" or "UOFT" into the API
+
+              // TODO: Display the "start_address" to ensure the user put in a correct start building
+              
+
+              // Determine walking time for the user
+              getGoogleDirections(originBuilding, originBusStopCoordinates, "walking").then(
                 (directionsBody) => {
                   // console.log(directionsBody);
+
+                  let suggestedStartAddress = directionsBody.routes[0].legs[0].start_address;
                   let walkingDistance = directionsBody.routes[0].legs.distance.text;
                   let walkingDuration = directionsBody.routes[0].legs.duration.text;
-
-                  let walkingDurationSeconds = directionsBody.routes[0].legs.duration.value
-
-                  console.log("Distance to walk: " + walkingDistance)
-                  console.log("Time taken to walk: " + walkingDuration)
+                  let walkingDurationSeconds = directionsBody.routes[0].legs.duration.value;
+                  
+                  console.log("Starting destination: " + suggestedStartAddress);
+                  console.log("Starting bus stop: " + busStop)
+                  console.log("Distance to walk: " + walkingDistance);
+                  console.log("Time taken to walk: " + walkingDuration);
                 }
               );
             
               // TODO: Given all of our information, determine an ideal set of instructions for the user
               // Will require: start date, start origin, destination, shuttle times
               // Will need to calculate which time from the shuttle times the user should aim for
+              
+
 
               // Render the instructions for the user
               res.render('instructions', {
@@ -292,21 +319,14 @@ async function verifyValidBuilding(req) {
   return false;
 }
 
-async function getGoogleDirections() {
+async function getGoogleDirections(originCoordinates, destinationCoordinates, transportationMethod) {
   // https://developers.google.com/maps/documentation/directions/intro#DirectionsRequests
 
-  // TODO: Get coordinates of destinate. Get if origin is UTSG or UTM
-
   // Build up parameters
-  let originCoordinates="43.55154,-79.66382"; // get from building chosen
-  let hartHouseCoordinates="43.663700559989046,-79.3945183686304";
-  let instructionalBuildingCoordinates="43.55154,-79.66382";
-
-  let destinationCoordinates = hartHouseCoordinates;
   parameters = {
     origin: originCoordinates, 
     destination: destinationCoordinates, 
-    mode: "walking", 
+    mode: transportationMethod, 
     key: process.env.GOOGLE_KEY
   };
   let url = "https://maps.googleapis.com/maps/api/directions/json?";

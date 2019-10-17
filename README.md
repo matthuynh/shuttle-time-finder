@@ -108,8 +108,7 @@ GOOGLE_KEY=<Your_API_Key_Here>
 
 - You will need to run the Python script found at shuttle-time-finder/webscraper/MongoUpdater.py
 
-- `$ pwd`
-`/Documents/shuttle-time-finder/webscraper`
+- `$ pwd` should output `/Documents/shuttle-time-finder/webscraper`
 
 - `$ python3 MongoUpdater.py 10 17 2019 10`
 This will webscrape shuttle bus data for the days starting from Oct 17, 2019 until Oct 27, 2019.
@@ -121,7 +120,7 @@ This will webscrape shuttle bus data for the days starting from Oct 17, 2019 unt
 #### Step 7: You can (finally) run the server now!
 
 - `$ npm run watch`
-The project should start on your localhost on port 3000. To view on your browser, navigate to `localhost:3000`.
+- The project should start on your localhost on port 3000. To view on your browser, navigate to `localhost:3000`.
 
 ----------
 # Sources
