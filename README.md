@@ -5,10 +5,10 @@ Given your current location, this web app will determine the next UTSG-UTM shutt
 This project will be hosted on Heroku.
 
 ## Screenshots
-Screenshots coming _ _soon_ _
+Screenshots coming _soon_
 
 ## Technologies Used
-More explanations coming _ _soon_ _
+More explanations coming _soon_
 - Node
 - Express, Pug (front-end templating)
 - Mongo
@@ -38,11 +38,14 @@ More explanations coming _ _soon_ _
 # Install
 ## To install and run an instance on your local machine, do
 1: Ensure that you have fulfilled all the requirements from above
+
 2: Clone this repo: 
     `$ git clone https://github.com/matthuynh/shuttle-time-finder.git`
+
 3: Install node module dependencies
     `$ cd shuttle-time-finder`
     `$ npm install`
+
 4: Initialize the Mongo server
     Start up an instance of Mongo on localhost:27017. Be sure to leave this server up.
     `$ mongod`
@@ -53,6 +56,7 @@ More explanations coming _ _soon_ _
     $ use shuttle_db
     $ db.createCollection("shuttle_data")
     ```
+
 5: Create shuttle-time-finder/.env
     ```
     $ pwd
@@ -65,6 +69,7 @@ More explanations coming _ _soon_ _
     COLLECTION_PATH=db.shuttle_data
     GOOGLE_KEY=<Your_API_Key_Here>
     ```
+
 6: Populate the Mongo server
     You will need to run the Python script found at shuttle-time-finder/webscraper/MongoUpdater.py
     `$ pwd`
@@ -73,11 +78,12 @@ More explanations coming _ _soon_ _
     This will webscrape shuttle bus data for the days starting from Oct 17, 2019 until Oct 27, 2019.
     To learn more about the script options, do `$ python3 MongoUpdater.py -h`
     Note that this script is meant to run periodically as a cron job in order to maintain accurate shuttle data.
+    
 7: You can (finally) run the server now!
     `$ npm run watch`
     The project should start on your localhost on port 3000. To view on your browser, navigate to `localhost:3000`.
 
-
+----------
 # Sources
 - Webscraping code adapted from: https://github.com/cobalt-uoft/uoft-scrapers/blob/master/uoftscrapers/scrapers/shuttles/__init__.py
 - UofT Building Data adapted from: https://github.com/cobalt-uoft/datasets/blob/master/buildings.json
