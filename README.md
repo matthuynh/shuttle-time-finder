@@ -3,7 +3,7 @@ Given your current location, this web app will determine the next UTSG-UTM shutt
 
 ## Screenshots
 <img src="https://user-images.githubusercontent.com/19757152/67150037-712cae00-f280-11e9-9ac0-79b8d0495b70.png" width="500">
-<img src="https://user-images.githubusercontent.com/19757152/67150038-71c54480-f280-11e9-80f7-ebfaf5fd3e72.png" width="500">
+<img src="https://user-images.githubusercontent.com/19757152/67150183-214ee680-f282-11e9-8174-474748460632.png" width="500">
 <img src="https://user-images.githubusercontent.com/19757152/67150030-65d98280-f280-11e9-8044-79ad1f4b2691.png" width="500">
 
 ## Technologies Used
