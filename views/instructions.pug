@@ -9,7 +9,7 @@ block instructions
   p You should arrive at #{t.destinationBusStop}, #{t.destinationCampus} at #{t.arrivalTime}.
   
   if t.rushHourNotice
-      h4(class="alert alert-danger" role="alert") #{t.rushHourNotice}  
+      h4(class="alert alert-warning" role="alert") #{t.rushHourNotice}  
 
   //- Allows the user to go back to the home page
   form(action='/', method="POST", class="date-location-chooser")
