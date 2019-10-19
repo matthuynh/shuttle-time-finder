@@ -1,11 +1,10 @@
 # shuttle-time-finder
 Given your current location, this web app will determine the next UTSG-UTM shuttle bus you can take. The app takes into account your distance from the bus stop and provides you with a time that indicates when you should start walking from your current location to get to the bus (on time!).You can also schedule when you would like to leave. 
 
-## Link to Heroku instance
-This project will be hosted on Heroku.
-
 ## Screenshots
-Screenshots coming _soon_
+<img src="https://user-images.githubusercontent.com/19757152/67150037-712cae00-f280-11e9-9ac0-79b8d0495b70.png" width="500">
+<img src="https://user-images.githubusercontent.com/19757152/67150038-71c54480-f280-11e9-80f7-ebfaf5fd3e72.png" width="500">
+<img src="https://user-images.githubusercontent.com/19757152/67150030-65d98280-f280-11e9-8044-79ad1f4b2691.png" width="500">
 
 ## Technologies Used
 More explanations coming _soon_
