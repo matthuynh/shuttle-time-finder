@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 
 // Schema that matches the format of the data in our collection
 const shuttleDataSchema = new mongoose.Schema({
@@ -16,4 +17,4 @@ const shuttleDataSchema = new mongoose.Schema({
 });
 
 // We build up the model by specifying a name, the schema, and collection name
-module.exports = mongoose.model('ShuttleData', shuttleDataSchema, 'cars');
+module.exports = mongoose.model('ShuttleData', shuttleDataSchema, process.env.COLLECTION_NAME);

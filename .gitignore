@@ -2,7 +2,7 @@ node_modules/
 notes.txt
 .env
 __pycache__/
-*.log
+*.log/
 buildings.json
 data.json
 script.py

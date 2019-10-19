@@ -39,7 +39,7 @@ if (month in [4, 6, 9, 11] and day == 31):
 if (month == 2 and day > 29):
     raise argparse.ArgumentTypeError("Your selected month cannot have this many day")
 # Leap year
-if (not calendar.isleap(year) and day == 29):
+if (month == 2 and (not calendar.isleap(year)) and day == 29):
     raise argparse.ArgumentTypeError("February does not have 29 day for the given year.")
 if (futureDays < 0):
     raise argparse.ArgumentTypeError("Your value for range must be 0 or greater")
@@ -51,7 +51,7 @@ date = datetime.datetime(year, month, day)
 LOG_FILENAME = 'MongoUpdater.log'
 muLogger = logging.getLogger("muLogger")
 logFormat = logging.Formatter("[%(asctime)s] %(message)s")
-muLogger.setLevel(logging.WARNING)
+muLogger.setLevel(logging.INFO)
 handler = logging.handlers.RotatingFileHandler(LOG_FILENAME, \
     mode='a', maxBytes=4194304, backupCount = 5)
 handler.setFormatter(logFormat)
@@ -63,7 +63,6 @@ db = client['shuttle_db']
 
 
 # Build up data to insert to Mongo
-dataToInsert = []
 stc = ShuttleTimeChecker()
 for i in range(futureDays + 1):
     # Get data from ShuttleTimeChecker
@@ -81,19 +80,22 @@ for i in range(futureDays + 1):
         utmDepartureTimes = json_object['routes'][0]['stops'][0]['times']
         utsgDepartureTimes = json_object['routes'][0]['stops'][1]['times']
 
-        dataToInsert.append({
-            "date": date,
-            "utm_departures": utmDepartureTimes,
-            "utsg_departures": utsgDepartureTimes
-        })
+        # Add data for this particular day to Mongo. If data for the day already exists, update it.
+        updateResult = db.shuttle_data.update_one({"date": date}, {"$set": {"utm_departures": utmDepartureTimes, "utsg_departures": utsgDepartureTimes}}, upsert=True)
+
+        # Verify data has been written
+        if (updateResult.acknowledged):
+            if (updateResult.matched_count and updateResult.modified_count == 0):
+                print("Data for {} is already up to date".format(date))
+                muLogger.info("Data for {} is already up to date".format(date))
+            elif (updateResult.modified_count):
+                print("Successfully modified data for {}".format(date))
+                muLogger.info("Successfully modified data for {}".format(date))
+            if (updateResult.upserted_id): 
+                print("Successfully inserted data for {}, with _id: {}".format(date, updateResult.upserted_id))
+                muLogger.info("Successfully inserted data for {}, with _id: {}".format(date, updateResult.upserted_id))
+        else:
+            print("Insert fail")
+            muLogger.warning("Insert Fail, could not insert the following data: {}, {}, {}\n\n\n)").format(date, utmDepartureTimes, utsgDepartureTimes)
+            
         date = date + timedelta(days=1)
-
-# Insert data into Mongo
-insertResult = db.shuttle_data.insert_many(dataToInsert)
-
-# Verify data has been written
-if (insertResult.acknowledged):
-    print("Insert success")
-else:
-    print("Insert fail")
-    muLogger.warning("Insert Fail, could not insert the following data:\n" + dataToInsert + "\n\n\n")

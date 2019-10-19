@@ -1,5 +1,8 @@
 extends layout
 
 block content
-  p No registrations yet :(
-  p #{dataDump}
+  p If you leave #{t.originBuilding} at #{t.leaveTime}, it will take about #{t.walkTime} minutes to walk to the #{t.originBusStop} bus stop. 
+  p The bus leaves at #{t.busDepartureTime}, and the trip will take about #{t.driveDuration} minutes.
+  p You should arrive at #{t.destinationBusStop}, #{t.destinationCampus} at #{t.arrivalTime}.
+  
+  p #{t.rushHourNotice}

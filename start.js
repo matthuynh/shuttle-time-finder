@@ -3,14 +3,14 @@ require('./models/ShuttleData');
 const mongoose = require('mongoose');
 
 // Connect to Mongo server
-mongoose.connect(process.env.TEST_DB, { 
+mongoose.connect(process.env.DATABASE, { 
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
 mongoose.Promise = global.Promise;
 mongoose.connection
   .on('connected', () => {
-    console.log(`Mongoose connection open on ${process.env.TEST_DB}`);
+    console.log(`Mongoose connection open on ${process.env.DATABASE}`);
   })
   .on('error', (err) => {
     console.log(`Connection error: ${err.message}`);
