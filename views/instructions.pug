@@ -2,7 +2,14 @@ extends layout
 
 block instructions
   //- List instructions for the user
-  label(for="leave-at-text") Your instructions
+  label(class="body-text") Your mission (should you choose to accept it)
+
+  p If you leave #{t.originBuilding} at #{t.leaveTime}, it will take about #{t.walkTime} minutes to walk to the #{t.originBusStop} bus stop. 
+  p The bus leaves at #{t.busDepartureTime}, and the trip will take about #{t.driveDuration} minutes.
+  p You should arrive at #{t.destinationBusStop}, #{t.destinationCampus} at #{t.arrivalTime}.
+  
+  if t.rushHourNotice
+      h4(class="alert alert-danger" role="alert") #{t.rushHourNotice}  
 
   //- Allows the user to go back to the home page
   form(action='/', method="POST", class="date-location-chooser")

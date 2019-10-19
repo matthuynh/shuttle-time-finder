@@ -1,89 +1,88 @@
 extends layout
 
-block content
-  //- form(action="/" method="POST")
-  //-   label(for="name") Name:
-  //-   input(
-  //-     type="text"
-  //-     id="name"
-  //-     name="name"
-  //-   )
-
-  //-   label(for="email") Email:
-  //-   input(
-  //-     type="email"
-  //-     id="email"
-  //-     name="email"
-  //-   )
-
-  //-   input(type="submit" value="Submit")
-
 block dateContent
-  form(action='/leaveAt', method="POST", class="date-location-chooser")
+  form(action='/leaveAt', method="POST", class="form-area")
 
-    label(for="leave-at-text") I want to leave at...
-    |
-    //- Month Dropdown
-    label(for='monthLabel') Months 
-      select(name='monthChosen', id='')
-        each month in Months
-            //- option=month
-            option(value=month, selected=(month==preselectedMonth)) #{month}
+    if errorMessage
+      h2(class="alert alert-danger" role="alert") #{errorMessage}  
+
+
+    label(class="body-text") I want to leave at ...
+
+    div.container.calendar-form
+      //- Month Dropdown
+      
+      label(for='monthLabel')
+        select(class='dropdown' name='monthChosen', id='')
+          each month in Months
+              //- option=month
+              option(value=month, selected=(month==preselectedMonth)) #{month}
+      
+      //- Day Dropdown
+      label(for='dayLabel')
+        select(name='dayChosen', id='')
+          each day in Days
+              option(value=day, selected=(day==preselectedDay)) #{day}
+
+      //- Year Dropdown
+      label(for='yearLabel')
+        select(name='yearChosen', id='')
+          each year in Years
+              option(value=year, selected=(year==preselectedYear)) #{year}
+
+    div.container.time-form
+      label(id="time-label") Time
+      //- Hour Dropdown
+      label(for='hourLabel')
+        select(name='hourChosen', id='')
+          each hour in Hours
+              option(value=hour, selected=(hour==preselectedHour)) #{hour}
+
+      //- Minute Dropdown
+      label(for='minuteLabel')
+        select(name='minuteChosen', id='')
+          each minute in Minutes
+              option(value=minute, selected=(minute==preselectedMinute)) #{minute}
+
+    label(class="body-text") I will be boarding the shuttle bus at ...
+
+    //- div.container.campus-chooser(class="btn-group btn-group-toggle")
+    //-   label.radio-inline
+    //-     //- Campus Radio Buttons
+    //-     input(class="btn", type="radio", name="busStop", value="UTSG", checked=(true==preselectedUTSG))
+    //-     | UTSG
+    //-     input(class="btn btn-primary", type="radio", name="busStop", value="UTM", checked=(true==preselectedUTM))
+    //-     | UTM
+
+    div.container.campus-chooser(class="form-radio")
+      //- Campus Radio Buttons
+      span &nbsp;UTSG&nbsp;
+      input(id="radio1", type="radio", name="busStop", value="UTSG", checked=(true==preselectedUTSG))
     
-    //- Day Dropdown
-    label(for='dayLabel') Day 
-      select(name='dayChosen', id='')
-        each day in Days
-            option(value=day, selected=(day==preselectedDay)) #{day}
-
-    //- Year Dropdown
-    label(for='yearLabel') Year 
-      select(name='yearChosen', id='')
-        each year in Years
-            option(value=year, selected=(year==preselectedYear)) #{year}
-
-    //- Hour Dropdown
-    label(for='hourLabel') Hour 
-      select(name='hourChosen', id='')
-        each hour in Hours
-            option(value=hour, selected=(hour==preselectedHour)) #{hour}
-
-    //- Minute Dropdown
-    label(for='minuteLabel') Minute 
-      select(name='minuteChosen', id='')
-        each minute in Minutes
-            option(value=minute, selected=(minute==preselectedMinute)) #{minute}
-
-    | I will be boarding the shuttle bus at...
-
-    //- Campus Radio Buttons
-    input(type="radio", name="busStop", value="UTSG", checked=(true==preselectedUTSG))
-    | UTSG
-    input(type="radio", name="busStop", value="UTM", checked=(true==preselectedUTM))
-    | UTM
+      span &nbsp;UTM&nbsp;
+      input(id="radio2", type="radio", name="busStop", value="UTM", checked=(true==preselectedUTM))
 
 
-    //- Building Textfield
-    //- input(id='inp1' list='browsers')
+      
+    label(class="body-text") I am currently at ...
+    div.container.building-input
+      //- Building Textfield
+      if (preselectedBuilding)
+        input(class="building-textbox", name="buildingChosen", list='buildings_list', value=preselectedBuilding, id='')
+      else
+        input(class="building-textbox", name="buildingChosen", list='buildings_list', placeholder="Enter a building", id='')
 
-    //- datalist(id='browsers')
-    //-     each val in ['zero', 'one', 'two']
-    //-       option(value=val)
-
-    //- Building Textfield
-    input(name="buildingChosen", list='buildings_list', id='')
-
-    datalist(id='buildings_list')
-        each building in Buildings
-          option(value=building)
+      datalist(id='buildings_list')
+          each building in Buildings
+            option(value=building)
 
     
+    div.container.calculate-button
+      //- "Caculate button"
+      
+      input(type='submit', value='Calculate', class="btn btn-lg btn-primary btn-block")
 
-    input(type='submit', value='Calculate', class="btn btn-lg btn-primary btn-block")
-
-
-block leaveNow
-  label(for="leave-now-text") I need to get to the bus ASAP!
-  form(action='/leaveNow', method="POST", class="date-location-chooser")
-    input(type='submit', value='Get me the next bus NOW', class="btn btn-lg btn-primary btn-block")
-
+//- block leaveNow
+//-   label(for="leave-now-text") I need to get to the bus ASAP!
+//-   form(action='/leaveNow', method="POST", class="date-location-chooser")
+//-     input(type='submit', value='Get me the next bus NOW', class="btn btn-lg btn-primary btn-block")

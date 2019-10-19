@@ -4,21 +4,14 @@ html
     title= `${title}`
 
   body
-    div.container.date-location-chooser
-        h1 Shuttle Bus Scheduler
+    div.container.form-area
+        h1(id='title') UofT Shuttle Bus Scheduler
         link(rel='stylesheet', href='/css/bootstrap.min.css')
         link(rel='stylesheet', href='/css/styles.css')
-        //- //- <link rel="stylesheet" href="datepicker.min.css">
-        //- link(rel='stylesheet', herf='https://unpkg.com/js-datepicker/dist/datepicker.min.css')
-        //- script(src='https://unpkg.com/js-datepicker')
-
-        block content 
         
         block dateContent
 
-        h1 #{errorMessage}   
-
-        block leaveNow
+        //- block leaveNow
 
         block instructions
 

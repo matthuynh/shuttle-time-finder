@@ -1,26 +1,69 @@
 body {
-  padding: 40px 10px;
+  padding: 30px 10px;
   background-color: #eee;
 }
-.listing-reg h1 {
+
+.body-text {
+  font-size: 18px;
+}
+
+.form-area #title {
   text-align: center;
   margin: 0 0 2rem;
 }
 
-/* css for registration form and errors*/
-.date-location-chooser {
-  max-width: 400px;
+.calendar-form {
+  text-align: center;
+}
+
+.time-form {
+  text-align: center;
+  padding-bottom: 5px;
+}
+
+.form-radio {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  padding-bottom: 20px;
+}
+
+.building-input {
+  text-align: center;
+  padding: 5px;
+}
+
+.building-textbox {
+  height: 50px;
+  font-size: 18px;
+  padding-left: 20px;
+}
+
+.calculate-button {
+  text-align: center;
+}
+
+#time-label {
+  width: 50px;
+}
+
+.form-area{
+  max-width: 500px;
   padding: 15px;
   margin: 0 auto;
 }
-.date-location-chooser {
-  display: flex;
-  flex-wrap: wrap;
-}
-.date-location-chooser input {
+
+.form-area input {
   width: 100%;
   margin: 0px 0 10px;
 }
-.date-location-choosern .btn {
+/* .form-area .btn {
   flex: 1 0 100%;
+} */
+
+#danger {
+  padding: 20px;
+  background-color: #f44336; /* Red */
+  color: white;
+  margin-bottom: 15px;
 }

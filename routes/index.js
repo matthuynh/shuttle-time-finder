@@ -20,6 +20,7 @@ let preselectedData = {
   preselectedYear: today.getFullYear(),
   preselectedHour: today.getHours(),
   preselectedMinute: ceilRoundToInteger(today.getMinutes(), 5),
+  preselectedBuilding: "",
   preselectedUTSG: true,
   preselectedUTM: false
 }
@@ -47,6 +48,7 @@ router.all('/', (req, res) => {
     Hours: calendarData['Hours'],
     Minutes: calendarData['Minutes'],
     Buildings: buildings,
+    preselectedBuilding: preselectedData.preselectedBuilding,
     preselectedMonth: preselectedData.preselectedMonth,
     preselectedDay: preselectedData.preselectedDay,
     preselectedYear: preselectedData.preselectedYear,
@@ -65,52 +67,75 @@ router.post("/leaveAt" , function(req, res){
   // Verifies if the user has entered a correct date
   //let validDate = verifyValidDate(req);
   let errMsg = "Default Error Message";
-  verifyValidDate(req).then(
-    (isValidDate) => {
-      // Valid Date
-      if (isValidDate) {
-        console.log("The date is valid");
-        let busStop = req.body.busStop;
-        let originBusStopCoordinates;
-        let destinationBusStopCoordinates;
-        let lowerDateRange = dateFormat(new Date(req.body.yearChosen, getMonthValue(req.body.monthChosen) - 1, req.body.dayChosen), 'yyyy-mm-dd');
-        let upperDateRange = dateFormat(new Date(req.body.yearChosen, getMonthValue(req.body.monthChosen) - 1, req.body.dayChosen) + 1, 'yyyy-mm-dd');
-        // The user's requested departure time, measured in in seconds after midnight
-        let timeChosen = ((Number(req.body.hourChosen)) * 3600) + ((Number(req.body.minuteChosen)) * 60);
+  if (req.body.buildingChosen == "") {
+    errMsg = 'Please enter a building'
+    res.render('form', {
+      title: 'Date Chosen',
+      errorMessage: errMsg,
+      Months: calendarData['Months'],
+      Days: calendarData['Days'],
+      Years: calendarData['Years'],
+      Hours: calendarData['Hours'],
+      Minutes: calendarData['Minutes'],
+      Buildings: buildings,
+      preselectedBuilding: preselectedData.preselectedBuilding,
+      preselectedMonth: preselectedData.preselectedMonth,
+      preselectedDay: preselectedData.preselectedDay,
+      preselectedYear: preselectedData.preselectedYear,
+      preselectedHour: preselectedData.preselectedHour,
+      preselectedMinute: preselectedData.preselectedMinute,
+      preselectedUTSG: preselectedData.preselectedUTSG,
+      preselectedUTM: preselectedData.preselectedUTM
+    });
+  } else {
+    verifyValidDate(req).then(
+      (isValidDate) => {
+        // Valid Date
+        if (isValidDate) {
+          console.log("The date is valid");
+          let busStop = req.body.busStop;
+          let originBusStopCoordinates;
+          let destinationBusStopCoordinates;
+          let lowerDateRange = dateFormat(new Date(req.body.yearChosen, getMonthValue(req.body.monthChosen) - 1, req.body.dayChosen), 'yyyy-mm-dd');
+          let upperDateRange = dateFormat(new Date(req.body.yearChosen, getMonthValue(req.body.monthChosen) - 1, req.body.dayChosen) + 1, 'yyyy-mm-dd');
+          // The user's requested departure time, measured in in seconds after midnight
+          let timeChosen = ((Number(req.body.hourChosen)) * 3600) + ((Number(req.body.minuteChosen)) * 60);
 
-        if (busStop == "UTSG") {
-          originBusStopCoordinates = "43.663700559989046,-79.3945183686304";
-          destinationBusStopCoordinates = "43.55154,-79.66382";
-          tripData.destinationCampus = "UTM";
-          tripData.destinationBusStop = "Instructional Building";
-        } else {
-          originBusStopCoordinates = "43.55154,-79.66382";
-          destinationBusStopCoordinates = "43.663700559989046,-79.3945183686304";
-          tripData.destinationCampus = "UTSG";
-          tripData.destinationBusStop = "Hart House";
-        }
-
-        // Determine approximately how long the shuttle bus trip between the two campuses will take
-        let originBuilding = busStop + " " + req.body.buildingChosen;
-        getGoogleDirections(originBusStopCoordinates, destinationBusStopCoordinates, "driving").then(
-          (directionsBody) => {
-            directionsBody = JSON.parse(directionsBody);
-            // console.log(typeof(directionsBody));
-            let busTripDurationSeconds = directionsBody.routes[0].legs[0].duration.value;
-            tripData.driveDuration = convertToMinutes(busTripDurationSeconds);
-
-            // busTripDuration = directionsBody.routes[0].legs[0].duration.text;
-            // console.log(`The bus trip will take approximately ${busTripDuration} minutes`);
+          if (busStop == "UTSG") {
+            originBusStopCoordinates = "43.663700559989046,-79.3945183686304";
+            destinationBusStopCoordinates = "43.55154,-79.66382";
+            tripData.destinationCampus = "UTM";
+            tripData.destinationBusStop = "Instructional Building";
+          } else {
+            originBusStopCoordinates = "43.55154,-79.66382";
+            destinationBusStopCoordinates = "43.663700559989046,-79.3945183686304";
+            tripData.destinationCampus = "UTSG";
+            tripData.destinationBusStop = "Hart House";
           }
-        ).then(
-          // Determine walking time for the user
-          getGoogleDirections(originBuilding, originBusStopCoordinates, "walking").then(
-            (directionsBody) => {
+
+          // Determine approximately how long the shuttle bus trip between the two campuses will take
+          let originBuilding = busStop + " " + req.body.buildingChosen;
+
+
+          let calculateTrip = async () => {
+            console.log("Inside");
+            try {
+              let directionsBody = await getGoogleDirections(originBusStopCoordinates, destinationBusStopCoordinates, "driving");
               directionsBody = JSON.parse(directionsBody);
-              let suggestedStartAddress = directionsBody.routes[0].legs[0].start_address;
-              let walkingDistance = directionsBody.routes[0].legs[0].distance.text;
-              let walkingDuration = directionsBody.routes[0].legs[0].duration.text;
-              let walkingDurationSeconds = directionsBody.routes[0].legs[0].duration.value;
+              // console.log(typeof(directionsBody));
+              let busTripDurationSeconds = directionsBody.routes[0].legs[0].duration.value;
+              tripData.driveDuration = convertToMinutes(busTripDurationSeconds);
+              // busTripDuration = directionsBody.routes[0].legs[0].duration.text;
+              // console.log(`The bus trip will take approximately ${busTripDuration} minutes`);
+
+
+
+              let walkDirectionsBody = await getGoogleDirections(originBuilding, originBusStopCoordinates, "walking");
+              walkDirectionsBody = JSON.parse(walkDirectionsBody);
+              let suggestedStartAddress = walkDirectionsBody.routes[0].legs[0].start_address;
+              let walkingDistance = walkDirectionsBody.routes[0].legs[0].distance.text;
+              let walkingDuration = walkDirectionsBody.routes[0].legs[0].duration.text;
+              let walkingDurationSeconds = walkDirectionsBody.routes[0].legs[0].duration.value;
               
               console.log("Starting destination: " + suggestedStartAddress);
               console.log("Starting bus stop: " + busStop)
@@ -120,111 +145,158 @@ router.post("/leaveAt" , function(req, res){
               tripData.walkTime = convertToMinutes(walkingDurationSeconds);
               tripData.originBuilding = suggestedStartAddress;
               tripData.originBusStop = busStop;
-            }
-          )
-        ).then(
-          // Accesses the ShuttleData Mongoose schema defined in models/ShuttleData.js
-          ShuttleData.find({'date': {$gte: lowerDateRange, $lte: upperDateRange}})
-          .then((shuttleData) => {
-            // res.render('shuttleData', { t: tripData});
 
-            // Check if data exists for the provided date
-            if (shuttleData === undefined || shuttleData.length == 0) {
-              console.log("There is no data for that date!");
-            } else {
-              res.render('shuttleData', {t: tripData});
-            }
-
-            shuttleData = shuttleData[0]._doc;
-            let retrievedDate = shuttleData.date;
-            console.log(retrievedDate);
-
-            // Calculate possible departure times for the user
-            let busTimes;
-            if (busStop == "UTM") {
-              busTimes = shuttleData.utm_departures;;
-            } else {
-              busTimes = shuttleData.utsg_departures;
-            }
-            
-            let candidateBusDepartures = [];
-            let walkingDurationSeconds = 60; // TODO: need to figure out a way to get this passed from the previous chained function
-            let busTripDurationSeconds = 1800; // TODO: Need to figure out a way to get this passed from previous chained function...
-            // console.log("Walking duration is " + walkingDurationSeconds);
-            for (const key of Object.keys(busTimes)) {
-              if (busTimes[key].time > timeChosen + walkingDurationSeconds) {
-                candidateBusDepartures.push({time: busTimes[key].time, rush_hour: busTimes[key].rush_hour})
-              }
-            }
-
-            // Check if the user has any buses they can take
-            if (candidateBusDepartures === undefined || candidateBusDepartures.length == 0) {
-              console.log("There are no more buses leaving today...")
-            } else {
-              tripData.leaveTime = getDateString(candidateBusDepartures[0].time - walkingDurationSeconds - 60); // add 1 minute of extra walking time
-              tripData.arrivalTime = getDateString(candidateBusDepartures[0].time + busTripDurationSeconds);
-
-              tripData.busDepartureTime = getDateString(candidateBusDepartures[0].time);
-
-              console.log("Leave from building at " + tripData.leaveTime);
-              console.log("Arrive at destination at " + tripData.arrivalTime);
-              console.log("Bus departs at " + tripData.busDepartureTime);
-
-            }
-    
-          })
-          .catch((error) => { console.log('Something went wrong...  ' + error); 
-          })
-        );
-      
-        // TODO: Given all of our information, determine an ideal set of instructions for the user
-        // Will require: start date, start origin, destination, shuttle times
-        // Will need to calculate which time from the shuttle times the user should aim for
               
-      } 
-      // Invalid Date -- ask user to enter a valid date
-      else {
-        console.log("The date is invalid");
-        errMsg = "Please enter a valid month-date-year combination!";
-        res.render('form', {
-          title: 'Date Chosen',
-          errorMessage: errMsg,
-          Months: calendarData['Months'],
-          Days: calendarData['Days'],
-          Years: calendarData['Years'],
-          Hours: calendarData['Hours'],
-          Minutes: calendarData['Minutes'],
-          Buildings: buildings,
-          preselectedMonth: preselectedData.preselectedMonth,
-          preselectedDay: preselectedData.preselectedDay,
-          preselectedYear: preselectedData.preselectedYear,
-          preselectedHour: preselectedData.preselectedHour,
-          preselectedMinute: preselectedData.preselectedMinute,
-          preselectedUTSG: preselectedData.preselectedUTSG,
-          preselectedUTM: preselectedData.preselectedUTM
-        });
-      }
-    }).catch((error) => {
-      console.log("Promise caught " + error)
-    });
+              // Accesses the ShuttleData Mongoose schema defined in models/ShuttleData.js
+              let shuttleData = await getShuttleData(lowerDateRange, upperDateRange);
+      
+              // Check if data exists for the provided date
+              if (shuttleData === undefined || shuttleData.length == 0) {
+                console.log("There is no data for that date!");
+                res.render('form', {
+                  title: 'Date Chosen',
+                  errorMessage: "There is no data for that date",
+                  Months: calendarData['Months'],
+                  Days: calendarData['Days'],
+                  Years: calendarData['Years'],
+                  Hours: calendarData['Hours'],
+                  Minutes: calendarData['Minutes'],
+                  Buildings: buildings,
+                  preselectedBuilding: preselectedData.preselectedBuilding,
+                  preselectedMonth: preselectedData.preselectedMonth,
+                  preselectedDay: preselectedData.preselectedDay,
+                  preselectedYear: preselectedData.preselectedYear,
+                  preselectedHour: preselectedData.preselectedHour,
+                  preselectedMinute: preselectedData.preselectedMinute,
+                  preselectedUTSG: preselectedData.preselectedUTSG,
+                  preselectedUTM: preselectedData.preselectedUTM
+                });
 
-    // Save user choices to preselectedData
-    updatePreselectedData(req);
-});
+              } else {
+                shuttleData = shuttleData[0]._doc;
+                let retrievedDate = shuttleData.date;
+                console.log(retrievedDate);
+        
+                // Calculate possible departure times for the user
+                let busTimes;
+                if (busStop == "UTM") {
+                  busTimes = shuttleData.utm_departures;;
+                } else {
+                  busTimes = shuttleData.utsg_departures;
+                }
+                
+                let candidateBusDepartures = [];
+                // console.log("Walking duration is " + walkingDurationSeconds);
+                for (const key of Object.keys(busTimes)) {
+                  if (busTimes[key].time > timeChosen + walkingDurationSeconds) {
+                    candidateBusDepartures.push({time: busTimes[key].time, rush_hour: busTimes[key].rush_hour})
+                  }
+                }
+        
+                // Check if the user has any buses they can take
+                if (candidateBusDepartures === undefined || candidateBusDepartures.length == 0) {
+                  console.log("There are no more buses leaving today...")
+                  res.render('form', {
+                    title: 'Date Chosen',
+                    errorMessage: "Sorry! There are no more buses leaving today.",
+                    Months: calendarData['Months'],
+                    Days: calendarData['Days'],
+                    Years: calendarData['Years'],
+                    Hours: calendarData['Hours'],
+                    Minutes: calendarData['Minutes'],
+                    Buildings: buildings,
+                    preselectedBuilding: preselectedData.preselectedBuilding,
+                    preselectedMonth: preselectedData.preselectedMonth,
+                    preselectedDay: preselectedData.preselectedDay,
+                    preselectedYear: preselectedData.preselectedYear,
+                    preselectedHour: preselectedData.preselectedHour,
+                    preselectedMinute: preselectedData.preselectedMinute,
+                    preselectedUTSG: preselectedData.preselectedUTSG,
+                    preselectedUTM: preselectedData.preselectedUTM
+                  });
+                } else {
+                  // Currently default to just looking at the first available time
+                  tripData.leaveTime = getDateString(candidateBusDepartures[0].time - walkingDurationSeconds - 60); // add 1 minute of extra walking time
+                  tripData.arrivalTime = getDateString(candidateBusDepartures[0].time + busTripDurationSeconds + 60); // add 1 minute
+        
+                  tripData.busDepartureTime = getDateString(candidateBusDepartures[0].time);
+
+                  // Check if rushour
+                  if (candidateBusDepartures[0].rush_hour) {
+                    tripData.rushHourNotice = "Note that this bus will be leaving during rush hour. The trip may take longer than usual."
+                  }
+        
+                  console.log("Leave from building at " + tripData.leaveTime);
+                  console.log("Arrive at destination at " + tripData.arrivalTime);
+                  console.log("Bus departs at " + tripData.busDepartureTime);
+                  console.log("Bus trip will take this many minutes: " + tripData.driveDuration);
+                
+                
+                  res.render('instructions', {t: tripData});
+                }
+              }
+            } catch (err) {
+              console.error(err);
+              console.log("welp");
+            }
+
+            
+          };
+          
+          calculateTrip();
+            
+
+          
+        
+          // TODO: Given all of our information, determine an ideal set of instructions for the user
+          // Will require: start date, start origin, destination, shuttle times
+          // Will need to calculate which time from the shuttle times the user should aim for
+                
+        } 
+        // Invalid Date -- ask user to enter a valid date
+        else {
+          console.log("The date is invalid");
+          errMsg = "Please enter a valid month-date-year combination";
+          res.render('form', {
+            title: 'Date Chosen',
+            errorMessage: errMsg,
+            Months: calendarData['Months'],
+            Days: calendarData['Days'],
+            Years: calendarData['Years'],
+            Hours: calendarData['Hours'],
+            Minutes: calendarData['Minutes'],
+            Buildings: buildings,
+            preselectedMonth: preselectedData.preselectedMonth,
+            preselectedDay: preselectedData.preselectedDay,
+            preselectedYear: preselectedData.preselectedYear,
+            preselectedHour: preselectedData.preselectedHour,
+            preselectedMinute: preselectedData.preselectedMinute,
+            preselectedUTSG: preselectedData.preselectedUTSG,
+            preselectedUTM: preselectedData.preselectedUTM
+          });
+        }
+      }).catch((error) => {
+        console.log("Promise caught " + error)
+      });
+
+      // Save user choices to preselectedData
+      updatePreselectedData(req);
+  };
+})
 
 // Handles the POST route from choosing to leave now
-router.post("/leaveNow" , function(req, res){
-  //console.log(req.body)
-  res.render('instructions', {
-      title: 'Leave Now'
-  });
-});
+// router.post("/leaveNow" , function(req, res){
+//   //console.log(req.body)
+//   res.render('instructions', {
+//       title: 'Leave Now'
+//   });
+// });
 
 
 
 // Handles the case where a user tries to go to a non-existent route
 router.get('*', function(req, res){
-  res.status(404).send('404. Please go home');
+  res.status(404).send('404 - page not found');
 });
 
 /**
@@ -271,6 +343,7 @@ function ceilRoundToInteger(value, interval) {
  * @param {*} req 
  */
 function updatePreselectedData(req) {
+  preselectedData.preselectedBuilding = req.body.buildingChosen;
   preselectedData.preselectedMonth = req.body.monthChosen;
   preselectedData.preselectedDay = req.body.dayChosen;
   preselectedData.preselectedYear = req.body.yearChosen;
@@ -322,6 +395,8 @@ async function verifyValidBuilding(req) {
 async function getGoogleDirections(originCoordinates, destinationCoordinates, transportationMethod) {
   // https://developers.google.com/maps/documentation/directions/intro#DirectionsRequests
 
+  console.log("reached");
+
   // Build up parameters
   parameters = {
     origin: originCoordinates, 
@@ -333,6 +408,12 @@ async function getGoogleDirections(originCoordinates, destinationCoordinates, tr
 
   console.log("bruh");
   // Send request to the Google Directions API
+  // return request({
+  //   method: 'GET',
+  //   url: url, 
+  //   qs: parameters,    
+  // });
+
   return new Promise(function(resolve,reject) {
     request({url:url, qs:parameters}, function(err, response, body) {
       if(err) { 
@@ -345,6 +426,12 @@ async function getGoogleDirections(originCoordinates, destinationCoordinates, tr
       resolve(body);
     })
   })
+     
+}
+
+
+async function getShuttleData(lowerDateRange, upperDateRange) {
+  return ShuttleData.find({'date': {$gte: lowerDateRange, $lte: upperDateRange}});
 }
 
 function convertToMinutes(seconds) {
@@ -352,7 +439,7 @@ function convertToMinutes(seconds) {
 }
 
 function getDateString(seconds) {
-  return moment("00:00", "HH:mm").add(seconds, "seconds").format("HH:mm A");
+  return moment("00:00", "hh:mm").add(seconds, "seconds").format("hh:mm A");
 }
 
 /**
