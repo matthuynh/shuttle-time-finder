@@ -6,17 +6,20 @@ Given your current location, this web app will determine the next UTSG-UTM shutt
 <img src="https://user-images.githubusercontent.com/19757152/67150183-214ee680-f282-11e9-8174-474748460632.png" width="500">
 <img src="https://user-images.githubusercontent.com/19757152/67150030-65d98280-f280-11e9-8044-79ad1f4b2691.png" width="500">
 
-## Technologies Used
-More explanations coming _soon_
-- Node
-- Express, Pug (front-end templating)
-- Mongo
-    - Why Mongo?
-- Python 
+## Technologies Used_
+- Node.js, Express.js
+	- Node and Express are used to provide the middleware and backend functionality of this project. They are responsible for: endpoint routing, calculating trip time logic, interacting with the database, and using the Google Directions API 
+- MongoDB and Mongoose
+	- Mongo is used to store shuttle bus data. The reason why I chose touse a database is to allow for more flexibility for new types of data that can be added in the future. Mongoose provides an abstraction and schema structure over Mongo, and was used to interface with the db.
+- Python
+	- Python is used to webscrape shuttle bus data from a UofT website. I created a script that can be run in the command line, with the user providing arguments that can specify which days they would like to gather/update data for. This data is stored in Mongo. PyMongo was used to interface with the Mongo database
+- Pug and Bootstrap
+	- Pug (front-end templating framework) is used to model the front end, while Bootstrap provides additional CSS styling.
 
 ----------
 # Requirements and Dependencies
 ## Python
+- Python 3.6
 - `pip install bs4`
     - version 0.01
 - `pip install requests`
@@ -126,18 +129,13 @@ This will webscrape shuttle bus data for the days starting from Oct 17, 2019 unt
 - Webscraping code adapted from: https://github.com/cobalt-uoft/uoft-scrapers/blob/master/uoftscrapers/scrapers/shuttles/__init__.py
 - UofT Building Data adapted from: https://github.com/cobalt-uoft/datasets/blob/master/buildings.json
 
-
-# Known Issues
-- Input validation does not exist for months of varying days (and leap years). For example, Feburary 2020 (a leap year) should have 29 days, but the form will show that it has 31 days.
-    - All months have 31 days
-    - Proposed solution: update the dropdown for Day depending on the Month and Year chosen
-
 # Future Roadmap
 - [ ] JEST tests
-- [ ] Updated front end using React
+- [ ] Updated frontend using React
 - [ ] More functionality and customizability for the user (eg. the ability to view various shuttle schedule times, the ability to choose when to arrive)
 - [ ] Leverage the Directions API to provide more functionality (eg. traffic data, the ability to choose between walking, biking, transit, and driving)
 - [ ] Improved search functionality and redundancy for UofT buildings
 - [ ] The ability to get the user's current location (will require React to be implemented first)
+- [ ] Improved error handling
 - [ ] https://github.com/timoxley/best-practices
 - [ ] https://gist.github.com/sidorares/c49750ed8f7750afd5ad
