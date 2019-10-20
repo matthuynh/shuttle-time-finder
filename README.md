@@ -2,9 +2,10 @@
 Given your current location, this web app will determine the next UTSG-UTM shuttle bus you can take. The app takes into account your distance from the bus stop and provides you with a time that indicates when you should start walking from your current location to get to the bus (on time!).You can also schedule when you would like to leave. 
 
 ## Screenshots
-<img src="https://user-images.githubusercontent.com/19757152/67150037-712cae00-f280-11e9-9ac0-79b8d0495b70.png" width="500">
-<img src="https://user-images.githubusercontent.com/19757152/67150183-214ee680-f282-11e9-8174-474748460632.png" width="500">
-<img src="https://user-images.githubusercontent.com/19757152/67150030-65d98280-f280-11e9-8044-79ad1f4b2691.png" width="500">
+<img src="https://user-images.githubusercontent.com/19757152/67150292-c1f1d600-f283-11e9-9e66-7ee140a86b2f.PNG" width="500">
+<img src="https://user-images.githubusercontent.com/19757152/67150291-c1f1d600-f283-11e9-8fc6-de08aad2120a.PNG" width="500">
+<img src="https://user-images.githubusercontent.com/19757152/67150290-c1f1d600-f283-11e9-8732-9e0598d22362.PNG" width="500">
+
 
 ## Technologies Used_
 - Node.js, Express.js
